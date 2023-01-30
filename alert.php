@@ -29,8 +29,7 @@
 Swal.fire({
   position: 'top-end',
   icon: 'gagal',
-  title: '<p class="text-danger"><strong>ANNOUNCEMENT!</strong></p>',
-        html: '<?php echo $Announcement; ?>'
+  title: '<?php echo $Announcement; ?>',
   showConfirmButton: false,
   timer: 1500
 })
