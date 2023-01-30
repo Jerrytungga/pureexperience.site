@@ -12,17 +12,22 @@ date_default_timezone_set('Asia/Jakarta');
 $hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H:i:s');
 
-if (isset($_POST['nip'])) {
-  $nip = $_POST['nip'];
-  $sql_traines = mysqli_query($conn, "SELECT angkatan, semester FROM `traines` WHERE nip='$nip'");
-  $data_angkatan = mysqli_fetch_array($sql_traines);
-  $angkatan = $data_angkatan['angkatan'];
-  $smt2 = $data_angkatan['semester'];
-}
+// if (isset($_POST['nip'])) {
+//   $nip = $_POST['nip'];
+//   $sql_traines = mysqli_query($conn, "SELECT angkatan, semester FROM `traines` WHERE nip='$nip'");
+//   $data_angkatan = mysqli_fetch_array($sql_traines);
+//   $angkatan = $data_angkatan['angkatan'];
+//   $smt2 = $data_angkatan['semester'];
+//   $_cekdata = mysqli_num_rows($cekid);
+// }
 
 $jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE batch='$AKT' and status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $cek_presensi = mysqli_fetch_array($jadwal1);
 $cek = mysqli_num_rows($jadwal1);
+
+$cekid = mysqli_query($conn, "SELECT nip FROM traines WHERE nip='".$_POST['nip']."'");
+$cekdata_id = mysqli_fetch_array($cekid);
+$cek__id = mysqli_num_rows($cekid);
 
 $cek_angkatan_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where batch='$AKT' and  status='Aktif' and date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
 $cek_batch = mysqli_fetch_array($cek_angkatan_jadwal);
@@ -135,6 +140,11 @@ if ($cek_batch['batch'] == 'ALL') {
 if (isset($_POST['nip'])) {
  if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
     echo notice(4);
+  }
+}
+if (isset($_POST['nip'])) {
+ if ($cek__id < 0) {
+    echo notice(5);
   }
 }
 
@@ -518,6 +528,8 @@ function notice($type)
     return "<audio autoplay><source src='" . 'music/beep.mp3' . "'></audio>";
   } elseif ($type == 4) {
     return "<audio autoplay><source src='" . 'music/Akses_ditolak.mp3' . "'></audio>";
+  } elseif ($type == 5) {
+    return "<audio autoplay><source src='" . 'music/Tidak_terdaftar.mp3' . "'></audio>";
   }
 }
 ?>
