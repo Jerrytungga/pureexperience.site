@@ -518,7 +518,7 @@ function notice($type)
   } elseif ($type == 3) {
     return "<audio autoplay><source src='" . 'music/beep.mp3' . "'></audio>";
   } elseif ($type == 4) {
-    return "<audio autoplay><source src='" . 'music/error.wav' . "'></audio>";
+    return "<audio autoplay><source src='" . 'music/Akses_ditolak.mp3' . "'></audio>";
   }
 }
 ?>
