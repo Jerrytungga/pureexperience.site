@@ -143,7 +143,7 @@ if (isset($_POST['nip'])) {
   }
 }
 if (isset($_POST['nip'])) {
- if ($cek__id < 0) {
+ if ($cek__id == 0) {
     echo notice(5);
   }
 }
