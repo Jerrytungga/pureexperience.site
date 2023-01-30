@@ -25,11 +25,16 @@
   <?php  } elseif (isset($Announcement)) { ?>
 
     <script>
-      Swal.fire({
-        icon: 'warning',
-        title: '<p class="text-danger"><strong>ANNOUNCEMENT!</strong></p>',
+
+Swal.fire({
+  position: 'top-end',
+  icon: 'gagal',
+  title: '<p class="text-danger"><strong>ANNOUNCEMENT!</strong></p>',
         html: '<?php echo $Announcement; ?>'
-      })
+  showConfirmButton: false,
+  timer: 1500
+})
+
     </script>
   <?php unset($Announcement);
   }
