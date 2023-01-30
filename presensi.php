@@ -12,14 +12,13 @@ date_default_timezone_set('Asia/Jakarta');
 $hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H:i:s');
 
-// if (isset($_POST['nip'])) {
-//   $nip = $_POST['nip'];
-//   $sql_traines = mysqli_query($conn, "SELECT angkatan, semester FROM `traines` WHERE nip='$nip'");
-//   $data_angkatan = mysqli_fetch_array($sql_traines);
-//   $angkatan = $data_angkatan['angkatan'];
-//   $smt2 = $data_angkatan['semester'];
-//   $_cekdata = mysqli_num_rows($cekid);
-// }
+if (isset($_POST['nip'])) {
+  $nip = $_POST['nip'];
+  $sql_traines = mysqli_query($conn, "SELECT angkatan, semester FROM `traines` WHERE nip='$nip'");
+  $data_angkatan = mysqli_fetch_array($sql_traines);
+  $angkatan = $data_angkatan['angkatan'];
+  $smt2 = $data_angkatan['semester'];
+}
 
 $jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE batch='$AKT' and status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $cek_presensi = mysqli_fetch_array($jadwal1);
@@ -141,18 +140,18 @@ if ($cek_batch['batch'] == 'ALL') {
     }
   }
 
-  if (isset($_POST['nip'])) {
-   if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
-      echo notice(4);
-    }
-  }
 }
 if (isset($_POST['nip'])) {
- if ($cek__id == 0) {
+  if ($cek__id == 0) {
     echo notice(5);
   }
 }
 
+if (isset($_POST['nip'])) {
+ if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
+    echo notice(4);
+  }
+}
 
 
 
