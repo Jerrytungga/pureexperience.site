@@ -20,6 +20,10 @@ if (isset($_POST['nip'])) {
   $smt2 = $data_angkatan['semester'];
 }
 
+$jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE batch='$AKT' and status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
+$cek_presensi = mysqli_fetch_array($jadwal1);
+$cek = mysqli_num_rows($jadwal1);
+
 $cek_angkatan_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where batch='$AKT' and  status='Aktif' and date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
 $cek_batch = mysqli_fetch_array($cek_angkatan_jadwal);
 $cek_batch['batch'];
@@ -69,9 +73,8 @@ if ($angkatan == $cek_batch['batch']) {
         if($inputpresensi){
           echo notice(2);
         } else {
-          $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Hanya bisa 1 kali Presensi!</strong></p>';
-          echo notice(3);
-
+          // $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Hanya bisa 1 kali Presensi!</strong></p>';
+          echo notice(4);
         }
       }
     }
@@ -128,15 +131,11 @@ if ($cek_batch['batch'] == 'ALL') {
     }
   }
 
-  // if (isset($_POST['nip'])) {
-  //   if ($cek == 0) {
-  //     $Announcement = $_SESSION['Announcement'] = 'No Schedule';
-  //     echo notice(4);
-  //   } else if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
-  //     $Announcement = $_SESSION['Announcement'] = 'Belum Saatnya Untuk Presensi!';
-  //     echo notice(4);
-  //   }
-  // }
+  if (isset($_POST['nip'])) {
+   if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
+      echo notice(4);
+    }
+  }
 }
 
 
