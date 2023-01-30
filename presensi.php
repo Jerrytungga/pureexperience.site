@@ -131,10 +131,10 @@ if ($cek_batch['batch'] == 'ALL') {
     }
   }
 
-  if (isset($_POST['nip'])) {
-   if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
-      echo notice(4);
-    }
+}
+if (isset($_POST['nip'])) {
+ if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
+    echo notice(4);
   }
 }
 
