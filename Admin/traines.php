@@ -177,12 +177,12 @@ include 'head.php';
                
                 <tbody>
                 <?php
-                     function batch($batch)
-                     {
-                         global $conn;
-                         $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_angkatan WHERE id='$batch'"));
-                         return $sqly['angkatan'];
-                     }
+                    //  function batch($batch)
+                    //  {
+                    //      global $conn;
+                    //      $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_angkatan WHERE id='$batch'"));
+                    //      return $sqly['angkatan'];
+                    //  }
                      function semester($semester)
                      {
                          global $conn;
@@ -201,7 +201,7 @@ include 'head.php';
                     <tr>
                         <td><?= $row['nip']; ?></td>
                         <td><?= $row['name']; ?></td>
-                        <td><?= batch($row['angkatan']); ?></td>
+                        <td><?= $row['angkatan']; ?></td>
                         <td><?= $row['gender']; ?></td>
                         <td><?= $row['date']; ?></td>
                         <td><?= asisten($row['Asisten']); ?></td>

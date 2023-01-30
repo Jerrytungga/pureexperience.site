@@ -36,9 +36,9 @@ if (isset($_POST['buka'])) {
         ?>
       </select>
 
-      <button class="btn btn-success shadow" type="submit" name="buka">Open Presensi</button>
+      <button class="btn btn-success shadow mt-3" type="submit" name="buka">Open Presensi</button>
     </form>
-    <a href="Login.php"><button class="btn btn-danger mt-2 mb-4">Login Panel Presensi</button></a>
+    <a href="Login.php"><button class="btn btn-danger mt-2 mb-4">Cpanel Presensi</button></a>
 
   </center>
 

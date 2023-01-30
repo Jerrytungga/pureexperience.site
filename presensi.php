@@ -69,15 +69,76 @@ if ($angkatan == $cek_batch['batch']) {
         if($inputpresensi){
           echo notice(2);
         } else {
-          echo "<script type='text/javascript'>
-          alert('Presensi hanya satu kali saja');
-          </script>";
+          $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Hanya bisa 1 kali Presensi!</strong></p>';
+          echo notice(3);
 
         }
       }
     }
   }
 }
+
+if ($cek_batch['batch'] == 'ALL') {
+  $sqli_jadwal_All = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and `batch`='" . $cek_batch['batch'] . "' and  date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
+  $array_jadwal_ALL = mysqli_fetch_array($sqli_jadwal_All);
+  $id_ = $array_jadwal_ALL['id'];
+  $week = $array_jadwal_ALL['week'];
+  $batch = $array_jadwal_ALL['batch'];
+  $id_kegiatan1 = $array_jadwal_ALL['id_activity'];
+  $info = $array_jadwal_ALL['info'];
+  $waktu = $array_jadwal_ALL['start_time'];
+  $jam_akhir = $array_jadwal_ALL['end_time'];
+  $waktuabsent = $array_jadwal_ALL['presensi_time'];
+  $timer = $array_jadwal_ALL['timer'];
+  if ($batch) {
+    // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
+    if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
+      if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) {
+        $hasil = 'V';
+      } 
+      if ($waktu < $waktu_sekarang && $timer > $waktu_sekarang) {
+        $hasil = 'O';
+      } 
+      if ($waktu < $waktu_sekarang && $timer < $waktu_sekarang) {
+        $hasil = 'X';
+      }
+
+
+    }
+
+
+
+
+    if (isset($_POST['nip'])) {
+      $nip = htmlspecialchars($_POST['nip']);
+      $sql_cekdata_nip = mysqli_num_rows(mysqli_query($conn, "SELECT nip, angkatan FROM `traines` WHERE nip='$nip' and angkatan='$angkatan'"));
+      if ($sql_cekdata_nip > 0) {
+        $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi` WHERE presensi_date=date(now()) AND schedule_id='$id_'"));
+        $idbr = $max['id'] + 1;
+        $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`, `id_presensi`, `schedule_id`,`semester`) VALUES ('$nip','$batch','$week','$id_kegiatan1','$waktu_sekarang','$hasil','$info','$idbr','$id_','$smt2')");
+          
+        if($inputpresensi){
+          echo notice(2);
+        } else {
+          echo notice(3);
+          $Announcement = $_SESSION['Announcement'] = 'Terimakasih';
+
+        }
+      } 
+    }
+  }
+
+  // if (isset($_POST['nip'])) {
+  //   if ($cek == 0) {
+  //     $Announcement = $_SESSION['Announcement'] = 'No Schedule';
+  //     echo notice(4);
+  //   } else if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
+  //     $Announcement = $_SESSION['Announcement'] = 'Belum Saatnya Untuk Presensi!';
+  //     echo notice(4);
+  //   }
+  // }
+}
+
 
 
 
@@ -108,6 +169,7 @@ $list = mysqli_fetch_array($jadwal);
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
     <link rel="stylesheet" type="text/css" href="css/sb-admin-2.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
 
 
     <link rel="stylesheet" href="source/bootstrap.min.css">
@@ -392,26 +454,10 @@ input {
 
 
 
-
-<!--------------- Alert/Information MODAL -->
-<div id="alert_modal" class="modal fade">  
-      <div class="modal-dialog modal-s modal-dialog-centered">  
-           <div class="modal-content">  
-                <div class="modal-header bg-primary text-white">  
-                     <h5 class="modal-title">Information</h5> 
-                     <button type="button" class="close btn-danger text-white" data-dismiss="modal">&times;</button> 
-                </div>  
-                <div class="modal-body" id="alert_txt_content">  
-                     
-                </div>  
-                <!--<div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> 
-                </div>  --> 
-           </div>  
-      </div>  
- </div> 
-
-
+  <?php
+  include 'alert.php';
+  ?>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
 
 
 

@@ -160,13 +160,14 @@ of Simple CSS Waves-->
 
 <!-- <h1>FT</h1> -->
 <div class="card text-white shadow mb-3" style="max-width: 18rem;">
-  <div class="card-header bg-primary"><strong>PRESENSI FTTI</strong></div>
+  <div class="card-header bg-warning"><strong>CPanel Presensi</strong></div>
   <div class="card-body">
     <h5 class="card-title text-dark">Login</h5>
     <form action="" method="post">
     <input type="text" name="username" class="form-control mb-1 " placeholder="Masukan Username Anda">
     <input type="password" name="sandi" class="form-control mb-1" placeholder="Masukan Sandi Anda">
-    <button type="submit" name="login" class="btn btn-success mt-2">Login</button>
+    <a class="m-1 btn btn-danger" href="index.php">Kembali</a>
+    <button type="submit" name="login" class="btn btn-success m-1">Login</button>
     </form>
   </div>
 </div>
