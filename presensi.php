@@ -121,7 +121,7 @@ if ($cek_batch['batch'] == 'ALL') {
           echo notice(2);
         } else {
           echo notice(3);
-          $Announcement = $_SESSION['Announcement'] = 'Terimakasih';
+          $Announcement = $_SESSION['Announcement'] = '<strong>Hanya bisa 1 kali Presensi!</strong>';
 
         }
       } 

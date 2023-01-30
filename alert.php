@@ -28,7 +28,7 @@
 
 Swal.fire({
   position: 'top-end',
-  icon: 'gagal',
+  icon: 'erorr',
   title: '<?php echo $Announcement; ?>',
   showConfirmButton: false,
   timer: 1500
