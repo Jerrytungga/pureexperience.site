@@ -201,13 +201,17 @@ $list = mysqli_fetch_array($jadwal);
 
 
 
-    <title></title>
+    <title>Presensi</title>
     <style media="screen">
       td { vertical-align: top }
     
       img {
         border-radius: 50%;
         
+      }
+      td,th,h4{
+    font-size: 14pt;
+    color:#03001C;
       }
       
     </style>
@@ -242,14 +246,13 @@ input {
 
   <body>
     <script src="client.js"></script>
-    <a class="btn btn-success m-1" href="index.php">Kembali</a>
-    <?= $data_angkatan['angkatan']; ?>
+    <a class="btn btn-outline-primary m-1" href="index.php">Kembali</a>
     <table class="table" id="bodyTable">
         <tr>
             <td style="width:35%; height:30%;">
                 <center>
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3 bg-success">
+                        <div class="card-header py-3" style="background-color: #243763;">
                             <h4 class="m-0 font-weight-bold text-white" id='dateToday'> </h4>
                             <!--<p id='dateToday' style="font-size:25pt"> -->
                                 <script type="text/javascript">
@@ -259,7 +262,7 @@ input {
                             <!--</p> -->
                         </div>
                         <div class="card-body">
-                            <p id='clock' class="text-dark" style="font-size:70pt">
+                            <p id='clock' style="font-size:70pt;color: #03001C;">
                                 <script type="text/javascript">
                                         var myVar = setInterval(myTimer, 1000);
                                         function myTimer() {
@@ -279,7 +282,7 @@ input {
             <td style="width:35%; height:30%;">
                
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3 bg-success">
+                        <div class="card-header py-3" style="background-color: #243763;">
                             <h2 class="m-0 font-weight-bold text-white" id='dateToday'> 
                                RFID 
                                <div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;" role="status">
@@ -290,10 +293,10 @@ input {
                         </div>
                         <div class="card-body">
                           
-                <button class="btn btn-success btn-sm ml-3">Prayer</button>
-                <button class="btn btn-success btn-sm ml-3">Hymns</button>
-                <button class="btn btn-success btn-sm ml-3">Exhibition</button>
-                <button class="btn btn-success btn-sm ml-3 ">Prophesying</button>
+                <a href="prayer.php" class="btn btn-success btn-sm ml-3">Prayer</a>
+                <a href="Hymns.php" class="btn btn-success btn-sm ml-3">Hymns</a>
+                <a href="Exhibition.php" class="btn btn-success btn-sm ml-3">Exhibition</a>
+                <a href="Prophesying.php" class="btn btn-success btn-sm ml-3 ">Prophesying</a>
                 <form action="" method="post">
                           <input type="text"   name="nip"   autofocus  autocomplete="off"  required="" >
                           <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
@@ -342,7 +345,7 @@ input {
             <td style="height:10%;">
                 <!-- Basic Card Example -->
                             <div class="card shadow mb-4 anouncement_marquee">
-                                <div class="card-header py-3 bg-success">
+                                <div class="card-header py-3" style="background-color: #243763;">
                                     <marquee><h3 class="m-0 font-weight-bold text-white">A  N  N  O  U  N  C  E  M  E  N  T</h3></marquee>
                                 </div>
                                 <div class="card-body"><font size="4pt"><p id="anouncement">
@@ -353,7 +356,7 @@ input {
             <td style="height:10%;">
                 <!-- Basic Card Example -->
                             <div class="card shadow mb-4 anouncement_marquee">
-                            <div class="card-header py-3 bg-success">
+                            <div class="card-header py-3" style="background-color: #243763;">
                             <meta http-equiv="refresh" content="<?= $sec ?>;URL='<?= $page ?>'">
                                     <h3 class="m-0 font-weight-bold text-white">View Presence Summary</h3>
                                 </div>
@@ -421,29 +424,6 @@ input {
    
 
 
-
-
-  <!-------------------- Modal view Absent-------------->
-  <div class="modal fade" id="modalViewAbsent" role="dialog">
-    <div class="modal-dialog modal-xl" style="width:1400px;" >
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        
-        <div class="modal-body">
-          <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height:550px;">
-                <table class="table table-bordered table-hover" id="viewAbsentTable" >
-                </table>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <h5 align="left"><script type="text/javascript">document.write(new Date().toLocaleDateString('en-ID', options) + "&nbsp;&nbsp;");</script></h5>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
 
 
 
