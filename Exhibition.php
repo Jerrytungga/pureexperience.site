@@ -85,7 +85,7 @@ $masukan_data = mysqli_query($conn, "INSERT INTO `tb_pameran`(`nip`,`week`, `E`)
                         <div class="card-header py-3" style="background-color: #243763;">
                             <div class="spinner-grow text-danger" role="status">
                             <form action="" method="post">
-                                  <input type="text"   name="nip"   autofocus  autocomplete="off"  required="" >
+                                  <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
                                   <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
         
                                   </form>

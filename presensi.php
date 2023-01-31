@@ -298,7 +298,7 @@ input {
                 <a href="Exhibition.php" class="btn btn-success btn-sm ml-3">Exhibition</a>
                 <a href="Prophesying.php" class="btn btn-success btn-sm ml-3 ">Prophesying</a>
                 <form action="" method="post">
-                          <input type="text"   name="nip"   autofocus  autocomplete="off"  required="" >
+                          <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
                           <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
 
                           </form>
