@@ -528,6 +528,7 @@ include 'head.php';
     </a>
     <?php
     include 'script.php';
+    include 'alert.php';
     ?>
 
     <script>
