@@ -19,11 +19,27 @@ if (isset($_POST['simpan'])) {
     $alarm = $_POST['ringtones'];
     $date = $_POST['date'];
     $pesan = $_POST['pesan'];
-    $insert_data = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`, `start_time`, `end_time`, `presensi_time`,`date`,`timer`,`nada_alarm`, `id_berita`, `id_trainer`) VALUES ('$batch','$weekly','$class','$pesan','$waktu_mulai','$waktu_akhir','$waktu_presensi','$date','$waktu_akhir_presensi','$alarm','$news','$pembicara')");
-    echo ("<script LANGUAGE='JavaScript'>
-    window.alert('Succesfully Insert');
-    window.location.href='jadwal.php';
-    </script>");
+    if ($_POST['waktu_mulai'] > $_POST['waktu_presensi'] || $_POST['waktu_mulai'] == $_POST['waktu_presensi']) {
+        if ($_POST['waktu_akhir_presensi'] > $_POST['waktu_presensi']) {
+            $insert_data = mysqli_query($conn, "INSERT INTO `schedule`(`batch`, `week`, `id_activity`, `info`, `start_time`, `end_time`, `presensi_time`,`date`,`timer`,`nada_alarm`, `id_berita`, `id_trainer`) VALUES ('$batch','$weekly','$class','$pesan','$waktu_mulai','$waktu_akhir','$waktu_presensi','$date','$waktu_akhir_presensi','$alarm','$news','$pembicara')");
+            if ($insert_data) {
+                $notifsukses = $_SESSION['sukses'] =  'Data Berhasil Disimpan';
+              } else {
+                $notifgagal = $_SESSION['gagal'] = 'Data Gagal Disimpan';
+              }
+        } else {
+            $waktu_timer = $_SESSION['gagal'] =  '<p class="text-danger"><strong>PERINGATAN!</strong></p>';
+          }
+
+    }else {
+        $pesan_presensi = $_SESSION['gagal'] =  '<p class="text-danger"><strong>PERINGATAN!</strong></p>';
+      }
+    
+    
+    // echo ("<script LANGUAGE='JavaScript'>
+    // window.alert('Succesfully Insert');
+    // window.location.href='jadwal.php';
+    // </script>");
 }
 if (isset($_POST['simpan_perubahan'])) {
     $idj = $_POST['idj'];
