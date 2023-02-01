@@ -15,4 +15,9 @@
      <!-- Custom styles for this page -->
      <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+     <style>
+        table,th,tr {
+            color: #03001C;
+        }
+     </style>
 </head>

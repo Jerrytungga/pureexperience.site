@@ -1,9 +1,6 @@
 <!-- Footer -->
 <footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
-        </div>
-    </div>
+<center><p>FTTI Absent system (ver. 1.0) - © 2023</p></center>
+ <ul id="log"></ul>
 </footer>
 <!-- End of Footer -->

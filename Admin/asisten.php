@@ -116,7 +116,7 @@ include 'head.php';
                         <th>ID</th>
                         <th>Username</th>
                         <th>Password</th>
-                        <th>Tanggal Regis</th>
+                        <!-- <th>Tanggal Regis</th> -->
                         <th>Aksi</th>
                
                     </tr>
@@ -132,7 +132,7 @@ include 'head.php';
                         <td><?= $row['nip']; ?></td>
                         <td><?= $row['username']; ?></td>
                         <td><?= $row['password']; ?></td>
-                        <td><?= $row['date']; ?></td>
+                        <!-- <td><?= $row['date']; ?></td> -->
                         <td>
                             <a id="editasisten"  type="button" class="btn btn-sm m-1 btn-warning" data-toggle="modal" data-target="#Edit" data-ids="<?= $row["id_as"]; ?>" data-id="<?= $row["nip"]; ?>" data-nama="<?= $row["name"]; ?>" data-username="<?= $row["username"]; ?>" data-password="<?= $row["password"]; ?>">
                             Edit

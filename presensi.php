@@ -246,7 +246,8 @@ input {
 
   <body>
     <script src="client.js"></script>
-    <a class="btn btn-outline-primary m-1" href="index.php">Kembali</a>
+    <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
+    <a class="btn btn-outline-primary m-1" href="view.php">View Presensi</a>
     <table class="table" id="bodyTable">
         <tr>
             <td style="width:35%; height:30%;">
@@ -293,10 +294,10 @@ input {
                         </div>
                         <div class="card-body">
                           
-                <a href="prayer.php" class="btn btn-success btn-sm ml-3">Prayer</a>
-                <a href="Hymns.php" class="btn btn-success btn-sm ml-3">Hymns</a>
-                <a href="Exhibition.php" class="btn btn-success btn-sm ml-3">Exhibition</a>
-                <a href="Prophesying.php" class="btn btn-success btn-sm ml-3 ">Prophesying</a>
+                <a href="prayer.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3">Prayer</a>
+                <a href="Hymns.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3">Hymns</a>
+                <a href="Exhibition.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3">Exhibition</a>
+                <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3 ">Prophesying</a>
                 <form action="" method="post">
                           <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
                           <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>

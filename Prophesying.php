@@ -1,5 +1,6 @@
 <?php
 include 'koneksi.php';
+$AKT = $_GET['akt'];
 error_reporting(E_ALL ^ E_NOTICE);
 date_default_timezone_set('Asia/Jakarta');
 $hari_ini = date('Y-m-d');
@@ -7,7 +8,7 @@ $waktu_sekarang = date('H:i:s');
 $jadwal_minggu = mysqli_query($conn, "SELECT MAX(week) as akhir FROM `presensi` where  presensi_date='$hari_ini'");
 $ambil_max = mysqli_fetch_array($jadwal_minggu);
 $week = $ambil_max['akhir'];
-if (isset($_POST['simpan'])) {
+if (isset($_POST['nip'])) {
 $nip = htmlspecialchars($_POST['nip']);
 $week = $ambil_max['akhir'];
 $poinProphesying = 1;
@@ -82,6 +83,7 @@ $masukan_data = mysqli_query($conn, "INSERT INTO `tb_ts`(`nip`,`week`, `TS`) VAL
             <td style="width:65%; height:30%;">
                 <center>
                     <div class="card shadow mb-4">
+                    <a href="presensi.php?akt=<?= $AKT;?>">Kembali</a>
                         <div class="card-header py-3" style="background-color: #243763;">
                             <div class="spinner-grow text-danger" role="status">
                             <form action="" method="post">
