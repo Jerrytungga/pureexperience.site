@@ -5,7 +5,7 @@ if ($AKT == "") {
   header("location: index.php");
 }
 $page = $_SERVER['REQUEST_URI'];
-$sec = "40";
+$sec = "30";
 session_start();
 error_reporting(E_ALL ^ E_NOTICE);
 date_default_timezone_set('Asia/Jakarta');
