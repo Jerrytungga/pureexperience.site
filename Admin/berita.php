@@ -3,7 +3,7 @@ include '../koneksi.php';
 include 'session.php';
 if (isset($_POST['simpandata'])){
     $items = $_POST['aktifitas'];
-    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_activity`) As id FROM `activity`"));
+    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_berita`) As id FROM `tb_daftar_berita`"));
     $idbr = $max['id'] + 1;
     $dataactivity = mysqli_query($conn, "INSERT INTO `tb_daftar_berita`(`id_berita`,`daftar_berita`) VALUES ('$idbr','$items')");
 }
