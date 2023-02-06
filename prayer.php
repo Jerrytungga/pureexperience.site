@@ -8,10 +8,18 @@ $waktu_sekarang = date('H:i:s');
 $jadwal_minggu = mysqli_query($conn, "SELECT MAX(week) as akhir FROM `presensi` where  presensi_date='$hari_ini'");
 $ambil_max = mysqli_fetch_array($jadwal_minggu);
 if (isset($_POST['nip'])) {
+  $nip = $_POST['nip'];
+  $sql_traines = mysqli_query($conn, "SELECT angkatan, semester, Asisten FROM `traines` WHERE nip='$nip'");
+  $data_angkatan = mysqli_fetch_array($sql_traines);
+  $angkatan = $data_angkatan['angkatan'];
+  $smt2 = $data_angkatan['semester'];
+  $asisten_ = $data_angkatan['Asisten'];
+}
+if (isset($_POST['nip'])) {
 $nip = htmlspecialchars($_POST['nip']);
 $week = $ambil_max['akhir'];
 $poindoa = 1;
-$masukan_data = mysqli_query($conn, "INSERT INTO `tb_doa`(`nip`,`week`, `P`) VALUES ('$nip','$week','$poindoa')");
+$masukan_data = mysqli_query($conn, "INSERT INTO `tb_doa`(`nip`,`batch`,`week`, `P`,`asisten`) VALUES ('$nip','$angkatan','$week','$poindoa','$asisten_')");
 if ($masukan_data){
     echo notice(5);
 }

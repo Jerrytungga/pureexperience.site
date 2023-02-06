@@ -9,10 +9,18 @@ $jadwal_minggu = mysqli_query($conn, "SELECT MAX(week) as akhir FROM `presensi` 
 $ambil_max = mysqli_fetch_array($jadwal_minggu);
 $week = $ambil_max['akhir'];
 if (isset($_POST['nip'])) {
+  $nip = $_POST['nip'];
+  $sql_traines = mysqli_query($conn, "SELECT angkatan, semester, Asisten FROM `traines` WHERE nip='$nip'");
+  $data_angkatan = mysqli_fetch_array($sql_traines);
+  $angkatan = $data_angkatan['angkatan'];
+  $smt2 = $data_angkatan['semester'];
+  $asisten_ = $data_angkatan['Asisten'];
+}
+if (isset($_POST['nip'])) {
 $nip = htmlspecialchars($_POST['nip']);
 $week = $ambil_max['akhir'];
 $poinProphesying = 1;
-$masukan_data = mysqli_query($conn, "INSERT INTO `tb_ts`(`nip`,`week`, `TS`) VALUES ('$nip','$week','$poinProphesying')");
+$masukan_data = mysqli_query($conn, "INSERT INTO `tb_ts`(`nip`,`batch`,`week`, `TS`,`asisten`) VALUES ('$nip','$angkatan','$week','$poinProphesying','$asisten_')");
 if ($masukan_data){
     echo notice(5);
 }

@@ -14,10 +14,11 @@ $waktu_sekarang = date('H:i:s');
 
 if (isset($_POST['nip'])) {
   $nip = $_POST['nip'];
-  $sql_traines = mysqli_query($conn, "SELECT angkatan, semester FROM `traines` WHERE nip='$nip'");
+  $sql_traines = mysqli_query($conn, "SELECT angkatan, semester, Asisten FROM `traines` WHERE nip='$nip'");
   $data_angkatan = mysqli_fetch_array($sql_traines);
   $angkatan = $data_angkatan['angkatan'];
   $smt2 = $data_angkatan['semester'];
+  $asisten_ = $data_angkatan['Asisten'];
 }
 
 $jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE batch='$AKT' and status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
@@ -72,7 +73,7 @@ if ($angkatan == $cek_batch['batch']) {
       if ($sql_cekdata_presensi > 0) {
         $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi`"));
         $idbr2 = $max['id'] + 1;
-        $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`,`id_presensi`,`schedule_id`,`semester`) VALUES ('$nip','$batch1','$week1','$id_kegiatan2','$waktu_sekarang','$hasil1','$info1','$idbr2','$id_1','$smt2')");
+        $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`,`id_presensi`,`schedule_id`,`semester`,`asisten`) VALUES ('$nip','$batch1','$week1','$id_kegiatan2','$waktu_sekarang','$hasil1','$info1','$idbr2','$id_1','$smt2','$asisten_')");
         
         if($inputpresensi){
           echo notice(2);
@@ -127,7 +128,7 @@ if ($cek_batch['batch'] == 'ALL') {
       if ($sql_cekdata_nip > 0) {
         $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi` WHERE presensi_date=date(now()) AND schedule_id='$id_'"));
         $idbr = $max['id'] + 1;
-        $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`, `id_presensi`, `schedule_id`,`semester`) VALUES ('$nip','$batch','$week','$id_kegiatan1','$waktu_sekarang','$hasil','$info','$idbr','$id_','$smt2')");
+        $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`, `id_presensi`, `schedule_id`,`semester`,`asisten`) VALUES ('$nip','$batch','$week','$id_kegiatan1','$waktu_sekarang','$hasil','$info','$idbr','$id_','$smt2','$asisten_')");
           
         if($inputpresensi){
           echo notice(2);
@@ -166,7 +167,7 @@ if (isset($_POST['nip'])) {
 $presensi = mysqli_query($conn, "SELECT * FROM `presensi` where batch='$AKT' ");
 $list = mysqli_fetch_array($presensi);
 
-$jadwal = mysqli_query($conn, "SELECT * FROM schedule where batch='$AKT' and status='Aktif' and   date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
+$jadwal = mysqli_query($conn, "SELECT * FROM schedule where batch='$AKT' and status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $list = mysqli_fetch_array($jadwal);
 
 ?>
@@ -247,7 +248,7 @@ input {
   <body>
     <script src="client.js"></script>
     <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
-    <a class="btn btn-outline-primary m-1" href="view.php?akt=<?= $AKT;?>">View Presensi</a>
+    <a class="btn btn-outline-primary m-1" href="view.php">View Presensi</a>
     <table class="table" id="bodyTable">
         <tr>
             <td style="width:35%; height:30%;">
@@ -386,7 +387,7 @@ input {
                       $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM traines WHERE nip='$nama_'"));
                       return $sqly['name'];
                     }
-                    $tampil3 = mysqli_query($conn, "SELECT * FROM presensi  group by nip ");
+                    $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where batch='$AKT' and presensi_date='$hari_ini'  group by nip ");
                     $arraytampil3 = mysqli_fetch_array($tampil3);
                         foreach ($tampil3 as $data) :
                     ?>
