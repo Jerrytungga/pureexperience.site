@@ -3,7 +3,7 @@ include '../koneksi.php';
 include 'session.php';
 if (isset($_POST['addringtones'])) {
     $sumber = $_FILES['filUpload']['tmp_name'];
-    $target = 'music/';
+    $target = '../music/';
     $ringtones = $_FILES['filUpload']['name'];
     $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_alarm`) As id FROM `ringtones`"));
     $id_max = $max_id['id'] + 1;
@@ -20,8 +20,8 @@ if (isset($_POST['hapus'])) {
     $data1 = mysqli_query($conn, "SELECT * FROM `ringtones` WHERE `ringtones`.`id_alarm` = '$id'");
     $ringtones1 = mysqli_fetch_array($data1);
     $data_ = $ringtones1['Ringtones'];
-    if (file_exists("music/$ringtones1[Ringtones]")) {
-        unlink("music/$ringtones1[Ringtones]");
+    if (file_exists("../music/$ringtones1[Ringtones]")) {
+        unlink("../music/$ringtones1[Ringtones]");
     }
     $menu = mysqli_query($conn, "DELETE FROM `ringtones` WHERE `ringtones`.`id_alarm` = '$id'");
 ?>
