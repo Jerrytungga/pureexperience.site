@@ -264,13 +264,8 @@ input {
                             <!--</p> -->
                         </div>
                         <div class="card-body">
-                            <p id='clock' style="font-size:70pt;color: #03001C;">
-                                <script type="text/javascript">
-                                        var myVar = setInterval(myTimer, 1000);
-                                        function myTimer() {
-                                            document.getElementById("clock").innerHTML = new Date().toLocaleTimeString('it-IT');
-                                        }
-                                </script>
+                            <p id='jam' style="font-size:70pt;color: #03001C;">
+                               
                             </p>
                         </div>
                     </div>
@@ -387,7 +382,7 @@ input {
                       $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM traines WHERE nip='$nama_'"));
                       return $sqly['name'];
                     }
-                    $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where batch='$AKT' and presensi_date='$hari_ini'  group by nip ");
+                    $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where batch='$AKT' and presensi_date='$hari_ini'  order by presensi_time DESC");
                     $arraytampil3 = mysqli_fetch_array($tampil3);
                         foreach ($tampil3 as $data) :
                     ?>
@@ -471,35 +466,29 @@ input {
 <script type="text/javascript" src="scanner/js/jquery.js"></script>
   <script type="text/javascript" src="scanner/js/qrcodelib.js"></script>
   <script type="text/javascript" src="scanner/js/webcodecamjquery.js"></script>
-<script type="text/javascript">
-    var arg = {
-      resultFunction: function(result) {
+  <script type="text/javascript">
+    window.onload = function() {
+      jam();
+    }
 
-        var redirect = '';
-        $.redirectPost(redirect, {
-          nip: result.code
-        });
-      }
-    };
+    function jam() {
+      var e = document.getElementById('jam'),
+        d = new Date(),
+        h, m, s;
+      h = d.getHours();
+      m = set(d.getMinutes());
+      s = set(d.getSeconds());
 
-    var decoder = $("canvas").WebCodeCamJQuery(arg).data().plugin_WebCodeCamJQuery;
-    decoder.buildSelectMenu("selet");
-    decoder.play();
-    // $('selct').on('change', function() {
-    //   decoder.stop().play();
-    // });
+      e.innerHTML = h + ':' + m + ':' + s;
 
-    $.extend({
-      redirectPost: function(location, args) {
-        var form = '';
-        $.each(args, function(key, value) {
-          form += '<input type="hidden" name="' + key + '" value="' + value + '">';
-        });
-        $('<form action="' + location + '" method="POST">' + form + '</form>').appendTo('body').submit();
-      }
-    });
+      setTimeout('jam()', 1000);
+    }
+
+    function set(e) {
+      e = e < 10 ? '0' + e : e;
+      return e;
+    }
   </script>
-
   </body>
 </html>
 

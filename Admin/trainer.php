@@ -3,17 +3,17 @@ include '../koneksi.php';
 include 'session.php';
 if (isset($_POST['simpandata'])){
     $items = $_POST['aktifitas'];
-    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_activity`) As id FROM `activity`"));
+    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_trainer`) As id FROM `trainer`"));
     $idbr = $max['id'] + 1;
-    $dataactivity = mysqli_query($conn, "INSERT INTO `tb_daftar_berita`(`id_berita`,`daftar_berita`) VALUES ('$idbr','$items')");
+    $dataactivity = mysqli_query($conn, "INSERT INTO `trainer`(`id_trainer`,`nama_trainer`) VALUES ('$idbr','$items')");
 }
 if (isset($_POST['editkegiatan'])){
     $activ_ =  $_POST['nama_'];
     $id_ =  $_POST['id_'];
-    $menu = mysqli_query($conn, "UPDATE `tb_daftar_berita` SET `daftar_berita` = '$activ_' WHERE `tb_daftar_berita`.`id_berita` = '$id_'");
+    $menu = mysqli_query($conn, "UPDATE `trainer` SET `nama_trainer` = '$activ_' WHERE `trainer`.`id_trainer` = '$id_'");
 }
 
-$ambildata_berita = mysqli_query($conn,"SELECT * FROM `tb_daftar_berita`");
+$ambildata_trainer = mysqli_query($conn,"SELECT * FROM `trainer`");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,10 +51,10 @@ include 'head.php';
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data Berita</h6> <br>
+        <h6 class="m-0 font-weight-bold text-primary">Data Trainer</h6> <br>
        <!-- Button trigger modal tambahkan asisten -->
        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-        Tambahkan Berita
+        Tambahkan Trainer
         </button>
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -68,7 +68,7 @@ include 'head.php';
             <div class="modal-body">
                 <form action="" method="post">
                 <div class="mt-1">
-                    <label for="id">Nama Berita :</label>
+                    <label for="id">Nama Trainer :</label>
                     <input type="text" class="form-control" name="aktifitas">
                 </div>
             </div>
@@ -95,13 +95,13 @@ include 'head.php';
                 <tbody>
                 <?php
                 $i = 1;
-                foreach ($ambildata_berita as $row) :
+                foreach ($ambildata_trainer as $row) :
                 ?>
                     <tr>
                         <td><?= $i; ?></td>
-                        <td><?= $row['daftar_berita']; ?></td>
+                        <td><?= $row['nama_trainer']; ?></td>
                         <td>
-                            <a id="edit"  type="button" class="btn btn-sm m-1 btn-warning" data-toggle="modal" data-target="#Edit" data-id="<?= $row['id_berita']; ?>" data-nama="<?= $row['daftar_berita']; ?>">
+                            <a id="edit"  type="button" class="btn btn-sm m-1 btn-warning" data-toggle="modal" data-target="#Edit" data-id="<?= $row['id_trainer']; ?>" data-nama="<?= $row['nama_trainer']; ?>">
                             Edit
                             </a>
 
@@ -110,7 +110,7 @@ include 'head.php';
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Edit Data Berita</h5>
+                                    <h5 class="modal-title" id="staticBackdropLabel">Edit Data Trainer</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -119,7 +119,7 @@ include 'head.php';
                                 <div class="modal-body" id="modal-edit">
                                     <input type="hidden" class="form-control" id="id" name="id_">
                                 <div>
-                                    <label for="id">Nama Berita :</label>
+                                    <label for="id">Nama Trainer :</label>
                                     <input type="text" class="form-control" id="nama" name="nama_">
                                 </div>
                             

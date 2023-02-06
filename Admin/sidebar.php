@@ -45,6 +45,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="kelas.php">Daftar Kelas</a>
                         <a class="collapse-item" href="berita.php">Daftar Berita</a>
+                        <a class="collapse-item" href="trainer.php">Daftar Trainer</a>
                         <a class="collapse-item" href="jadwal.php">Jadwal Kelas</a>
                         <a class="collapse-item" href="alarm.php">Nada Alarm</a>
                     </div>
