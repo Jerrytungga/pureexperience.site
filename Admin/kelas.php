@@ -13,7 +13,7 @@ if (isset($_POST['editkegiatan'])){
     $menu = mysqli_query($conn, "UPDATE `activity` SET `items` = '$activ_' WHERE `activity`.`id_activity` = '$id_'");
 }
 
-$ambildata_kelas = mysqli_query($conn,"SELECT * FROM `activity`");
+$ambildata_kelas = mysqli_query($conn,"SELECT * FROM `activity` ORDER BY id_activity DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">

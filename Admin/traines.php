@@ -41,7 +41,7 @@ if (isset($_POST['hapus'])){
    
 }
 
-$ambildata_traines = mysqli_query($conn,"SELECT * FROM `traines` order by date DESC");
+$ambildata_traines = mysqli_query($conn,"SELECT * FROM `traines` ORDER BY idt DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">

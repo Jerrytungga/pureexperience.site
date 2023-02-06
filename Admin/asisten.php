@@ -26,7 +26,7 @@ if (isset($_POST['aktifkan'])){
     $sts = $_POST['aktifkan'];
     $save = mysqli_query($conn,"UPDATE `asisten` SET `status` = '$sts' WHERE `asisten`.`id_as` ='$Ei_'");
 }
-$ambildata_asisten = mysqli_query($conn,"SELECT * FROM `asisten`");
+$ambildata_asisten = mysqli_query($conn,"SELECT * FROM `asisten` ORDER BY id_as DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
