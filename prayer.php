@@ -82,10 +82,11 @@ if ($masukan_data){
   
     <table class="table" id="bodyTable">
         <tr>
+        <a href="presensi.php?akt=<?= $AKT;?>" class="btn btn-danger btn-sm m-2">Back</a>
             <td style="width:65%; height:30%;">
                 <center>
                     <div class="card shadow mb-4">
-                        <a href="presensi.php?akt=<?= $AKT;?>">Kembali</a>
+                     
                         <div class="card-header py-3" style="background-color: #243763;">
                             <div class="spinner-grow text-danger" role="status">
                             <form action="" method="post">

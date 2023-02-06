@@ -1,7 +1,9 @@
 <?php
 include '../koneksi.php';
+date_default_timezone_set('Asia/Jakarta');
+$hari_ini = date('Y-m-d');
 include 'session.php';
-$ambildata_presensi = mysqli_query($conn,"SELECT * FROM `presensi`");
+$ambildata_presensi = mysqli_query($conn,"SELECT * FROM `presensi` where `asisten` = '$id'");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,10 +44,60 @@ include 'head.php';
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#presensi">
-    Add Presensi Manual
+    <div class="card-header py-3 " style="background-color: #68B984;">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+    Presensi
     </button>
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header" style="background-color: #68B984; color: #ffff;">
+                <h5 class="modal-title" id="staticBackdropLabel">Tambahkan Presensi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label for="">Jadwal </label>
+                    <select name="jadwal" id="" class="form-control">
+                        <option value="">Pilih Jadwal</option>
+                        <?php
+                         function activity($activity)
+                         {
+                             global $conn;
+                             $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$activity'"));
+                             return $sqly['items'];
+                         }
+                            $ambiljadwal = mysqli_query($conn,"SELECT * FROM `schedule` where `date` ='$hari_ini'");
+                            while ($ambiljadwal1 = mysqli_fetch_array($ambiljadwal)){ ?>
+                            <option value="<?= $ambiljadwal1['id']?>"><?= activity($ambiljadwal1['id_berita'])?></option>
+    
+                         <?php   }
+                        ?>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <label for="">Waktu Presensi :</label>
+                    <input type="time" name="waktu" class="form-control">
+                </div>
+                <div class="mt-2">
+                    <label for="">Mark:</label>
+                   <select name="mark" id="" class="form-control">
+                    <option value="V">V</option>
+                    <option value="O">O</option>
+                    <option value="X">X</option>
+                   </select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success">Tambahkan</button>
+            </div>
+            </div>
+        </div>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -70,7 +122,7 @@ include 'head.php';
                   {
                       global $conn;
                       $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM traines WHERE nip='$nama'"));
-                      return $sqly['nip'];
+                      return $sqly['name'];
                   }
                 $i = 1;
                 foreach ($ambildata_presensi as $row) :
@@ -125,14 +177,9 @@ include 'head.php';
         <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

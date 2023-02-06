@@ -1,5 +1,11 @@
 <?php
 include 'koneksi.php';
+$AKT = $_GET['akt'];
+if(isset($_POST['cari'])){
+$tgl = $_POST['mulai'];
+$akhir_tgl = $_POST['akhir'];
+
+};
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,71 +24,28 @@ include 'koneksi.php';
   <div class="card m-3">
   <div class="card-header">
   <div class="form-group">
-  <form action="" method="POST" id="form_id">
-  <label for="">Week :</label>
-                                                                                        <select id="minggu" name="weekly_" onChange="document.getElementById('form_id').submit();">
-                                                                                            <option value="">Select Week</option>
-                                                                                            <option value="Orientation">Orientation</option>
-                                                                                            <option value="PT1">PT1</option>
-                                                                                            <option value="PT2">PT2</option>
-                                                                                            <option value="PT3">PT3</option>
-                                                                                            <option value="R1">R1</option>
-                                                                                            <option value="R2">R2</option>
-                                                                                            <option value="R3">R3</option>
-                                                                                            <option value="R4">R4</option>
-                                                                                            <option value="R5">R5</option>
-                                                                                            <option value="R6">R6</option>
-                                                                                            <option value="R7">R7</option>
-                                                                                            <option value="R8">R8</option>
-                                                                                            <option value="R9">R9</option>
-                                                                                            <option value="R10">R10</option>
-                                                                                            <option value="R11">R11</option>
-                                                                                            <option value="R12">R12</option>
-                                                                                            <option value="R13">R13</option>
-                                                                                            <option value="R14">R14</option>
-                                                                                            <option value="R15">R15</option>
-                                                                                            <option value="R16">R16</option>
-                                                                                            <option value="R17">R17</option>
-                                                                                            <option value="R18">R18</option>
-                                                                                            <option value="Evaluasi">Evaluasi</option>
-
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <?php
-                                                                                      if ($_POST['weekly_'] > 0 ){ ?>
-
-                                                                                            <div class="form-group">
-                                                                                            <input type="hidden" id="idj" name="idj">
-                                                                                            <label for="">Batch :</label>
-                                                                                            <select id="angkatan" name="akt">
-                                                                                                <option value="">Select Batch</option>
-                                                                                                <?php
-                                                                                                $abl_angkatan = mysqli_query($conn, "SELECT angkatan FROM `tb_angkatan` ");
-                                                                                                while ($dataangkatan = mysqli_fetch_array($abl_angkatan)) { ?>
-                                                                                                    <option value="<?= $dataangkatan['angkatan']; ?>"><?= $dataangkatan['angkatan']; ?></option>
-                                                                                                <?php  }
-
-                                                                                                ?>
-                                                                                            </select> <br>
-
-                                                                                            <a href="view.php" class="btn btn-danger">Reset</a>
-                                                                                        </div>
-                                                                                   <?php   }
-                                                                                    ?>
-    
-    </form>
-  </div>
+ 
+ 
   <div class="card-body">
     <h5 class="card-title">Presensi</h5>
+    <form action="" method="post">
+    <div>
+      <label for="">Masukan Tanggal</label>
+      <input type="date" name="mulai">
+      <input type="date" name="akhir">
+      <button type="submit" name="cari" >Cari</button>
+    </div>
+  </form>
+  <a href="presensi.php?akt=<?= $AKT;?>" class="btn btn-danger">Back</a>
     <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">No</th>
       <th scope="col">Name</th>
       <th scope="col">Batch</th>
-      <th scope="col">V</th>
-      <th scope="col">O</th>
-      <th scope="col">X</th>
+      <th scope="col"><span class="badge badge-pill badge-success">V</span></th>
+      <th scope="col"><span class="badge badge-pill badge-warning">O</span></th>
+      <th scope="col"><span class="badge badge-pill badge-danger">X</span></th>
       <th scope="col">Prayer</th>
       <th scope="col">Hymns</th>
       <th scope="col">Exhibition</th>
@@ -91,13 +54,38 @@ include 'koneksi.php';
     </tr>
   </thead>
   <tbody>
+  <?php
+   function name($nama_)
+   {
+     global $conn;
+     $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM traines WHERE nip='$nama_'"));
+     return $sqly['name'];
+   }
+   $i = 1;
+   $tampilan_presensi = mysqli_query($conn, "SELECT * FROM `presensi` where presensi_date BETWEEN '".$_POST['mulai']."' AND '".$_POST['akhir']."' group by `week`");
+   while ($array_presensi = mysqli_fetch_array($tampilan_presensi)) {
+    $nip = $array_presensi['nip'];
+    $mark_V = $array_presensi['mark'] = 'V';
+    $mark_O = $array_presensi['mark'] = 'O';
+    $mark_X = $array_presensi['mark'] = 'X';
+    $tampil_mark_V = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_V' AND presensi_date BETWEEN '$tgl' AND '$akhir_tgl' GROUP BY week");
+    $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
+
+
+
+    foreach ($tampilan_presensi as $row) :
+      $traines = mysqli_query($conn, "SELECT * FROM `traines` where nip='".$row['nip']."'");
+      $angkatan= mysqli_fetch_array($traines);
+                       ?>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
+      <th scope="row"><?= $i; ?></th>
+      <td><?= name($row['nip']); ?></td>
+      <td><?= $angkatan['angkatan']; ?></td>
+      <td><?= $arraytampil_mark_V['total']; ?></td>
+      <td></td>
+      <td></td>
+      </td>
+      
       <td>@mdo</td>
       <td>@mdo</td>
       <td>@mdo</td>
@@ -105,7 +93,11 @@ include 'koneksi.php';
       <td>@mdo</td>
     </tr>
     
-    </tr>
+    <?php $i++; ?>
+                     <?php endforeach; 
+   }
+                     
+                     ?>
   </tbody>
 </table>
 

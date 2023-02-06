@@ -41,15 +41,15 @@ include 'head.php';
         href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">My Trainee</h6> <br>
+<div class="card shadow mb-4" >
+    <div class="card-header py-3" style="background-color: #68B984;">
+        <h6 class="m-0 font-weight-bold text-light" >My Trainee</h6> <br>
       
     </div>
-    <div class="card-body">
+    <div class="card-body" >
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead style="color: #567189;">
                     <tr>
                     <th>No</th>
                     <th>Name</th>
@@ -59,7 +59,7 @@ include 'head.php';
                     </tr>
                 </thead>
                
-                <tbody>
+                <tbody style="color: #567189;">
                 <?php
                   function batch($batch)
                   {
@@ -72,27 +72,105 @@ include 'head.php';
                     ?>
 
                         <tr>
-
                             <td><?= $i; ?></td>
                             <td><?= $row['name'];  ?></td>
-                            <td><?= batch($row['angkatan']);  ?></td>
+                            <td><?= $row['angkatan'];  ?></td>
                             <td>
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#presensi">
-                                View Presensi
+                            <button type="button" class="btn text-light" data-toggle="modal" data-target="#presensi<?= $row['nip']; ?>" style="background-color: #68B984;">
+                                View Presensi 
+                               
+                               
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="presensi" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
+                                <div class="modal fade" id="presensi<?= $row['nip']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Presensi</h5>
+                                    <div class="modal-header" style="background-color: #68B984;">
+                                        <h5 class="modal-title" id="staticBackdropLabel" style="color: #ffff;">Presensi</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        ...
+                                    <div class="modal-body " id="modal-editTraine">
+                                        <?php
+                                        $tampilan_presensi = mysqli_query($conn,"SELECT * FROM `presensi` where `nip`='".$row['nip']."'  GROUP BY nip");
+                                        ?>
+                
+                                    <table class="table table-striped">
+                                        <thead style="color: #171717;">
+                                            <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Minggu</th>
+                                            <th scope="col">V</th>
+                                            <th scope="col">O</th>
+                                            <th scope="col">X</th>
+                                            <th scope="col">P</th>
+                                            <th scope="col">H</th>
+                                            <th scope="col">E</th>
+                                            <th scope="col">TS</th>
+                                            <th scope="col">Total Minus</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="color: #567189;">
+                                        <?php
+                                            //  $ambildata_traines1 = mysqli_query($conn,"SELECT nip,week, COUNT(mark) as X FROM `presensi` WHERE `nip`='".$row['nip']."' GROUP BY week;");
+                                            $i = 1;
+                                            while ($array_presensi = mysqli_fetch_array($tampilan_presensi)) {
+                                                $nip = $array_presensi['nip'];
+                                                $mark_V = $array_presensi['mark'] = 'V';
+                                                $mark_O = $array_presensi['mark'] = 'O';
+                                                $mark_X = $array_presensi['mark'] = 'X';
+                                                $mark_I = $array_presensi['mark'] = 'I';
+                                                $mark_S = $array_presensi['mark'] = 'S';
+                              
+                                                $tampil_mark_V = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_V'");
+                                                $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
+                              
+                                                $tampil_mark_O = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_O'");
+                                                $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
+                              
+                                                $tampil_mark_X = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_X'");
+                                                $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
+                              
+                                                $tampil_mark_I = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_I'");
+                                                $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
+
+                                                $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where nip='$nip' group by nip ");
+                                                $arraytampil3 = mysqli_fetch_array($tampil3);
+                              
+                                            foreach ($tampil3 as $row) :
+                                            ?>
+
+                                            <tr>
+                                            <th scope="row">1</th>
+                                            <td><?= $row['week'];  ?></td>
+                                            <td width="125"><span class="badge badge-pill badge-success"><?= $arraytampil_mark_V['total']; ?></span></td>
+                                            <td width="110"><span class="badge badge-pill badge-warning"><?php 
+                                            if($arraytampil_mark_O['total'] > 0){
+                                               echo $arraytampil_mark_O['total']*-1;
+                                            } else {
+                                               echo $arraytampil_mark_O['total'];
+                                            } ?></span></td>
+                                            <td width="110"><span class="badge badge-pill badge-danger"><?php
+                                            if($arraytampil_mark_X['total'] > 0){
+                                               echo $arraytampil_mark_X['total']*-2;
+                                            } else {
+                                                echo $arraytampil_mark_X['total'];
+                                            }?></span></td>
+                                            <td width="100"></td>
+                                            <td width="90">0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            </tr>
+                                            <?php $i++; ?>
+                                                 <?php endforeach; 
+                                            }
+                                                 ?>
+                                            
+                                        </tbody>
+                                        </table>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -145,6 +223,7 @@ include 'head.php';
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
 
 </body>
 

@@ -13,6 +13,9 @@ $nip = htmlspecialchars($_POST['nip']);
 $week = $ambil_max['akhir'];
 $poinExhibition = 1;
 $masukan_data = mysqli_query($conn, "INSERT INTO `tb_pameran`(`nip`,`week`, `E`) VALUES ('$nip','$week','$poinExhibition')");
+if ($masukan_data){
+    echo notice(5);
+}
 }
   $Exhibition = mysqli_query($conn, "SELECT nip, SUM(E) as e FROM `tb_pameran` where week='$week' GROUP BY nip");
 ?>
@@ -80,10 +83,11 @@ $masukan_data = mysqli_query($conn, "INSERT INTO `tb_pameran`(`nip`,`week`, `E`)
   
     <table class="table" id="bodyTable">
         <tr>
+        <a href="presensi.php?akt=<?= $AKT;?>" class="btn btn-danger btn-sm m-2">Back</a>
             <td style="width:65%; height:30%;">
                 <center>
                     <div class="card shadow mb-4">
-                    <a href="presensi.php?akt=<?= $AKT;?>">Kembali</a>
+                   
                         <div class="card-header py-3" style="background-color: #243763;">
                             <div class="spinner-grow text-danger" role="status">
                             <form action="" method="post">
@@ -195,3 +199,19 @@ $masukan_data = mysqli_query($conn, "INSERT INTO `tb_pameran`(`nip`,`week`, `E`)
 
   </body>
 </html>
+<?php
+function notice($type)
+{
+  if ($type == 2) {
+    return "<audio autoplay><source src='" . '../music/beep.mp3' . "'></audio><br><audio autoplay><source src='" . 'music/voice.mp3' . "'></audio>";
+  } elseif ($type == 1) {
+    return "<audio autoplay><source src='" . '../music/success.wav' . "'></audio>";
+  } elseif ($type == 3) {
+    return "<audio autoplay><source src='" . '../music/beep.mp3' . "'></audio>";
+  } elseif ($type == 4) {
+    return "<audio autoplay><source src='" . '../music/Akses_ditolak.mp3' . "'></audio>";
+  } elseif ($type == 5) {
+    return "<audio autoplay><source src='" . '../music/Terimakasih.mp3' . "'></audio>";
+  }
+}
+?>
