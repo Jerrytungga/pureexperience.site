@@ -130,15 +130,27 @@ if ($masukan_data){
             </td>
 
             <td style="width:40%; font-size: 14pt color:Tomato;" rowspan="2">
-            </div>
-                <table class="table table-striped" >
-                    <thead>
-                       
+            <table>
+            <thead>
                         <tr>
                             <th>Name</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th>Poin</th>
                         </tr>
                     </thead>
+            </table>
+            <div class="card-body" style="height: 350px;overflow: scroll;">
+                <table class="table table-striped" >
+                  
                     <tbody>
                         <?php
                
@@ -162,6 +174,7 @@ if ($masukan_data){
                      ?>
                     </tbody>
                 </table>
+                </div>
             </td>
         </tr>
         <tr>

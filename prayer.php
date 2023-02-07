@@ -133,6 +133,16 @@ if ($masukan_data){
             <thead>
                         <tr>
                             <th>Name</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th>Poin</th>
                         </tr>
                     </thead>
