@@ -41,73 +41,12 @@ include 'head.php';
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data Traines</h6> <br>
-       <!-- Button trigger modal tambahkan asisten -->
-       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-        Tambahkan Angkatan
-        </button>
-        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-dark" id="staticBackdropLabel">Masukan Angkatan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="post">
-                <input type="number" class="form-control" name="batch">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <button type="submit" name="simpandata" class="btn btn-success">Tambahkan</button>
-            </div>
-            </form>
-    </div>
+    
   </div>
 </div>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                    <th>No</th>
-                    <th>Angkatan</th>
-                    <th>Tanggal</th>
-                    <th>Aksi</th>
-               
-                    </tr>
-                </thead>
-               
-                <tbody>
-                <?php
-                  
-                $i = 1;
-                foreach ($data as $row) :
-                    ?>
-
-                        <tr>
-
-                            <td><?= $i; ?></td>
-                            <td><?= $row['angkatan'];  ?></td>
-                            <td><?= $row['tgl'];  ?></td>
-                            <td>
-                                <form action="" method="post">
-                                    <input type="hidden" name="del" value="<?= $row['id']; ?>">
-                                    <button type="submit" name="hapus" class="btn btn-danger">Delete</button>
-                            </td>
-                            </form>
-                        </tr>
-                    
-                   
-                    <?php $i++; ?>
-                     <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+       
     </div>
 </div>
 

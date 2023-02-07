@@ -101,7 +101,7 @@ include 'head.php';
                                         <thead style="color: #171717;">
                                             <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Minggu</th>
+                                            <th scope="col">Jadwal</th>
                                             <th scope="col">V</th>
                                             <th scope="col">O</th>
                                             <th scope="col">X</th>
@@ -114,59 +114,35 @@ include 'head.php';
                                         </thead>
                                         <tbody style="color: #567189;">
                                         <?php
-                                            //  $ambildata_traines1 = mysqli_query($conn,"SELECT nip,week, COUNT(mark) as X FROM `presensi` WHERE `nip`='".$row['nip']."' GROUP BY week;");
+                                             $ambildata_traines1 = mysqli_query($conn,"SELECT * FROM `presensi` WHERE `nip`='".$row['nip']."'");
+                                             $ambildata_traines_ = mysqli_fetch_array($ambildata_traines1);
                                             $i = 1;
-                                            while ($array_presensi = mysqli_fetch_array($tampilan_presensi)) {
-                                                $nip = $array_presensi['nip'];
-                                                $mark_V = $array_presensi['mark'] = 'V';
-                                                $mark_O = $array_presensi['mark'] = 'O';
-                                                $mark_X = $array_presensi['mark'] = 'X';
-                                                $mark_I = $array_presensi['mark'] = 'I';
-                                                $mark_S = $array_presensi['mark'] = 'S';
-                              
-                                                $tampil_mark_V = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_V'");
-                                                $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
-                              
-                                                $tampil_mark_O = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_O'");
-                                                $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
-                              
-                                                $tampil_mark_X = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_X'");
-                                                $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
-                              
-                                                $tampil_mark_I = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_I'");
-                                                $arraytampil_mark_I = mysqli_fetch_array($tampil_mark_I);
-
-                                                $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where nip='$nip' group by nip ");
-                                                $arraytampil3 = mysqli_fetch_array($tampil3);
-                              
-                                            foreach ($tampil3 as $row) :
+                                            foreach ($ambildata_traines1 as $row) :
                                             ?>
 
                                             <tr>
-                                            <th scope="row">1</th>
+                                            <th scope="row"><?= $i;  ?></th>
                                             <td><?= $row['week'];  ?></td>
-                                            <td width="125"><span class="badge badge-pill badge-success"><?= $arraytampil_mark_V['total']; ?></span></td>
-                                            <td width="110"><span class="badge badge-pill badge-warning"><?php 
-                                            if($arraytampil_mark_O['total'] > 0){
-                                               echo $arraytampil_mark_O['total']*-1;
-                                            } else {
-                                               echo $arraytampil_mark_O['total'];
-                                            } ?></span></td>
-                                            <td width="110"><span class="badge badge-pill badge-danger"><?php
-                                            if($arraytampil_mark_X['total'] > 0){
-                                               echo $arraytampil_mark_X['total']*-2;
-                                            } else {
-                                                echo $arraytampil_mark_X['total'];
-                                            }?></span></td>
-                                            <td width="100"></td>
-                                            <td width="90">0</td>
+                                           
+                                            <td><?php
+                                            if($ambildata_traines_['mark'] == 'V') {
+                                                $ambildata_traines2 = mysqli_query($conn,"SELECT COUNT(mark) as X FROM `presensi` WHERE `nip`='".$row['nip']."'");
+                                                $ambildata_traines_11 = mysqli_fetch_array($ambildata_traines2);
+                                               echo $ambildata_traines_11['X'];
+                                            }
+                                            
+                                             ?></td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
                                             <td>0</td>
                                             <td>0</td>
                                             <td>0</td>
                                             </tr>
                                             <?php $i++; ?>
                                                  <?php endforeach; 
-                                            }
+                                            
                                                  ?>
                                             
                                         </tbody>
