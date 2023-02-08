@@ -1,9 +1,8 @@
 <?php
 include 'koneksi.php';
 $AKT = $_GET['akt'];
-if(isset($_POST['cari'])){
-$tgl = $_POST['mulai'];
-$akhir_tgl = $_POST['akhir'];
+if(isset($_POST['simpan'])){
+$tgl = $_POST['week'];
 
 };
 $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
@@ -26,6 +25,37 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
   <body>
 
   <div class="card m-3">
+    <div>
+      <form action="" method="post">
+        <select name="week" id="">
+        <option value="">Pilih Minggu</option>
+           <option value="Orientation">Orientation</option>
+                                                                        <option value="PT1">PT1</option>
+                                                                        <option value="PT2">PT2</option>
+                                                                        <option value="PT3">PT3</option>
+                                                                        <option value="R1">R1</option>
+                                                                        <option value="R2">R2</option>
+                                                                        <option value="R3">R3</option>
+                                                                        <option value="R4">R4</option>
+                                                                        <option value="R5">R5</option>
+                                                                        <option value="R6">R6</option>
+                                                                        <option value="R7">R7</option>
+                                                                        <option value="R8">R8</option>
+                                                                        <option value="R9">R9</option>
+                                                                        <option value="R10">R10</option>
+                                                                        <option value="R11">R11</option>
+                                                                        <option value="R12">R12</option>
+                                                                        <option value="R13">R13</option>
+                                                                        <option value="R14">R14</option>
+                                                                        <option value="R15">R15</option>
+                                                                        <option value="R16">R16</option>
+                                                                        <option value="R17">R17</option>
+                                                                        <option value="R18">R18</option>
+                                                                        <option value="Evaluasi">Evaluasi</option>
+        </select>
+        <button type="submit" name="simpan">Cari</button>
+      </form>
+    </div>
   <div class="card-body">
   <table id="example" class="display nowrap" style="width:100%">
     <thead>
@@ -60,13 +90,13 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
                   $mark_O = $array_presensi['mark'] = 'O';
                   $mark_X = $array_presensi['mark'] = 'X';
 
-                  $tampil_mark_V = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_V' ");
+                  $tampil_mark_V = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_V' and week='".$_POST['week']."' ");
                   $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
-                  $tampil_mark_O = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_O'");
+                  $tampil_mark_O = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_O' and week='".$_POST['week']."'");
                   $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
 
-                  $tampil_mark_X = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_X'");
+                  $tampil_mark_X = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_X' and week='".$_POST['week']."'");
                   $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
 
                   $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where nip='$nip' group by nip ");

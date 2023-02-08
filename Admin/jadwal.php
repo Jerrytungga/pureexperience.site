@@ -61,7 +61,7 @@ if (isset($_POST['simpan_perubahan'])) {
     window.location.href='jadwal.php';
     </script>");
 }
-$data = mysqli_query($conn, "SELECT * FROM `schedule` where date > $hari_ini and end_time >'$waktu_sekarang' ORDER BY id DESC");
+$data = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and end_time >'$waktu_sekarang' ORDER BY id DESC");
 $data_Schedule = mysqli_fetch_array($data);
 ?>
 <!DOCTYPE html>
@@ -328,7 +328,7 @@ include 'head.php';
                                                     </td> -->
                                                     <td>
                                                         <?php
-                                                        if ($row['end_time'] > $waktu_sekarang) { ?>
+                                                        if ($row['date'] > $hari_ini) { ?>
                                                            <a id="edit" class="btn btn-warning" data-toggle="modal" data-target="#editjadwal" data-idj="<?= $row['id']; ?>" data-angkatan="<?= $row['batch']; ?>" data-info="<?= $row['info']; ?>" data-minggu="<?= $row['week']; ?>" data-starttime="<?= $row['start_time']; ?>" data-activity="<?= $row['id_activity']; ?>" data-trainer="<?= $row['id_trainer']; ?>" data-berita="<?= $row['id_berita'];?>" data-date="<?= $row['date']; ?>" data-akhirwaktu="<?= $row['end_time']; ?>" data-waktupresensi="<?= $row['presensi_time']; ?>" data-timer="<?= $row['timer']; ?>" data-nada="<?= $row['nada_alarm']; ?>">
                                                             Edit
                                                             </a>
