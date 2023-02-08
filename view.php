@@ -171,7 +171,13 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
                 }
                 ?></td>
         
-        <td><?= $total_point;?></td>
+        <td><?php
+        if($total_point < 0) { ?>
+        <span class="badge badge-pill badge-danger"><?= $total_point ?></span>
+       <?php  } else {
+           echo $total_point = 0;
+         }
+        ?></td>
       </tr>
     </center>
       <?php $i++; ?>

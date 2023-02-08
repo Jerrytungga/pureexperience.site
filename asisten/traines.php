@@ -61,18 +61,24 @@ include 'head.php';
                
                 <tbody style="color: #567189;">
                 <?php
+                  $p = 1;
                   function batch($batch)
                   {
                       global $conn;
                       $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_angkatan WHERE id='$batch'"));
                       return $sqly['angkatan'];
                   }
-                $i = 1;
+                  function activity($activity)
+                  {
+                      global $conn;
+                      $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$activity'"));
+                      return $sqly['items'];
+                  }
                 foreach ($ambildata_traines as $row) :
                     ?>
 
                         <tr>
-                            <td><?= $i; ?></td>
+                            <td><?= $p; ?></td>
                             <td><?= $row['name'];  ?></td>
                             <td><?= $row['angkatan'];  ?></td>
                             <td>
@@ -102,43 +108,22 @@ include 'head.php';
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Jadwal</th>
-                                            <th scope="col">V</th>
-                                            <th scope="col">O</th>
-                                            <th scope="col">X</th>
-                                            <th scope="col">P</th>
-                                            <th scope="col">H</th>
-                                            <th scope="col">E</th>
-                                            <th scope="col">TS</th>
-                                            <th scope="col">Total Minus</th>
+                                            <th scope="col">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody style="color: #567189;">
                                         <?php
+                                        
                                              $ambildata_traines1 = mysqli_query($conn,"SELECT * FROM `presensi` WHERE `nip`='".$row['nip']."'");
                                              $ambildata_traines_ = mysqli_fetch_array($ambildata_traines1);
                                             $i = 1;
-                                            foreach ($ambildata_traines1 as $row) :
+                                            foreach ($ambildata_traines1 as $data) :
                                             ?>
 
                                             <tr>
                                             <th scope="row"><?= $i;  ?></th>
-                                            <td><?= $row['week'];  ?></td>
-                                           
-                                            <td><?php
-                                            if($ambildata_traines_['mark'] == 'V') {
-                                                $ambildata_traines2 = mysqli_query($conn,"SELECT COUNT(mark) as X FROM `presensi` WHERE `nip`='".$row['nip']."'");
-                                                $ambildata_traines_11 = mysqli_fetch_array($ambildata_traines2);
-                                               echo $ambildata_traines_11['X'];
-                                            }
-                                            
-                                             ?></td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
+                                            <td><?= activity($data['id_activity']); ?></td>
+                                            <td><?= $data['mark']; ?></td>
                                             </tr>
                                             <?php $i++; ?>
                                                  <?php endforeach; 
@@ -160,7 +145,7 @@ include 'head.php';
                         </tr>
                     
                    
-                    <?php $i++; ?>
+                    <?php $p++; ?>
                      <?php endforeach; ?>
                 </tbody>
             </table>
@@ -198,6 +183,11 @@ include 'head.php';
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/datatables-demo.js"></script>
     <script src="../js/sb-admin-2.min.js"></script>
 
 
