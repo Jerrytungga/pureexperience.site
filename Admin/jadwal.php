@@ -61,7 +61,7 @@ if (isset($_POST['simpan_perubahan'])) {
     window.location.href='jadwal.php';
     </script>");
 }
-$data = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and end_time >'$waktu_sekarang' ORDER BY id DESC");
+$data = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' ORDER BY id DESC");
 $data_Schedule = mysqli_fetch_array($data);
 ?>
 <!DOCTYPE html>
