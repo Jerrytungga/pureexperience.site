@@ -6,7 +6,7 @@ $tgl = $_POST['mulai'];
 $akhir_tgl = $_POST['akhir'];
 
 };
-$ambil_data = mysqli_query ($conn,"SELECT nip, count(mark) as total FROM presensi where nip and mark='V' and presensi_date BETWEEN '2023-02-07' and '2023-02-07' GROUP BY nip;")
+$ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,25 +17,118 @@ $ambil_data = mysqli_query ($conn,"SELECT nip, count(mark) as total FROM presens
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    
+    <title>Presensi</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.4/css/buttons.dataTables.min.css">
   </head>
-  <body>
-    <div>
 
-    </div>
+  <body>
+
+  <div class="card m-3">
+  <div class="card-body">
+  <table id="example" class="display nowrap" style="width:100%">
+    <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Batch</th>
+                <th>V</th>
+                <th>O</th>
+                <th>X</th>
+                <th>Prayer</th>
+                <th>Hymns</th>
+                <th>Exhibition</th>
+                <th>Prophesying</th>
+                <th>Total Minus</th>
+              </tr>
+            </thead>
+        <tbody>
+          <?php
+           function name($nama_)
+           {
+             global $conn;
+             $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM traines WHERE nip='$nama_'"));
+             return $sqly['name'];
+            }
+            $ambil_data_ = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
+            $i = 1; ?>
+            <?php
+                while ($array_presensi = mysqli_fetch_array($ambil_data)) {
+                  $nip = $array_presensi['nip'];
+                  $mark_V = $array_presensi['mark'] = 'V';
+                  $mark_O = $array_presensi['mark'] = 'O';
+                  $mark_X = $array_presensi['mark'] = 'X';
+
+                  $tampil_mark_V = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_V' ");
+                  $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
+
+                  $tampil_mark_O = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_O'");
+                  $arraytampil_mark_O = mysqli_fetch_array($tampil_mark_O);
+
+                  $tampil_mark_X = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_X'");
+                  $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
+
+                  $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where nip='$nip' group by nip ");
+                  $arraytampil3 = mysqli_fetch_array($tampil3);
+
+                  $total_point = $arraytampil_mark_O['total']*-1 + $arraytampil_mark_X['total']*-2;
+                ?>
+
+             <?php foreach ($tampil3 as $row) : 
+                $traines = mysqli_query ($conn,"SELECT * FROM traines where nip='$nip'");
+                $ambil_batch = mysqli_fetch_array($traines);
+                
+            
+            ?>
+            <tr>
+             <td><?= $i; ?></td>
+             <td><?= name($arraytampil3['nip']); ?></td>
+             <td><?= $ambil_batch['angkatan']; ?></td>
+             <td><?= $arraytampil_mark_V['total']; ?></td>
+             <td><?= $arraytampil_mark_O['total']*-1; ?></td>
+             <td><?= $arraytampil_mark_X['total'] *-2; ?></td>
+         
+
+
+           
+            
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td><?= $total_point;?></td>
+            </tr>
+            <?php $i++; ?>
+            <?php endforeach; 
+            } ?>
+        </tbody>
+        
+    </table>
+  </div>
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <script>
       $(document).ready(function() {
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
+        $('#example').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    } );
-} );
-    </script>
+          ]
+        } );
+      } );
+      </script>
+      <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+      <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js"></script>
+    
   </body>
 </html>
