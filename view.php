@@ -26,6 +26,7 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
 
     <div class="card m-3">
       <div>
+        <a href="presensi.php?akt=<?= $AKT;?>" class="btn btn-danger btn-sm m-2 ml-4">Back</a>
       <form action="" method="post" id="form_id">
         <select  class="form-control col-3 ml-4 mt-2" name="week" onChange="document.getElementById('form_id').submit();" required>
         <option value="">Select Week</option>
@@ -56,7 +57,7 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
           <?php 
           if($_POST['week']){ ?>
 
-<a href="view.php" class="btn btn-danger ml-4 mt-2">Reset</a>
+<a href="view.php" class="btn btn-info ml-4 mt-2">Reset</a>
         <?php  }
           ?>
         </form>
@@ -72,9 +73,9 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
                 <th>No</th>
                 <th>Name</th>
                 <th>Batch</th>
-                <th>V</th>
-                <th>O</th>
-                <th>X</th>
+                <th width="120"><span class="badge badge-pill badge-success">V</span></th>
+              <th width="110"><span class="badge badge-pill badge-warning">O</span></th>
+              <th width="110"><span class="badge badge-pill badge-danger">X</span></th>
                 <th>Prayer</th>
                 <th>Hymns</th>
                 <th>Exhibition</th>
@@ -118,6 +119,7 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
                   $poinexhibition = mysqli_fetch_array($exhibition);
                   
                   $ts = mysqli_query($conn, "SELECT nip, SUM(TS) as total  FROM `tb_ts` WHERE nip='$nip' AND week='".$_POST['week']."'");
+                  $points = mysqli_fetch_array($ts);
                   
                   $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where nip='$nip' group by nip ");
                   $arraytampil3 = mysqli_fetch_array($tampil3);
@@ -126,15 +128,16 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
                   ?>
 
 <?php foreach ($tampil3 as $row) : 
-  $points = mysqli_fetch_array($ts);
                 $traines = mysqli_query ($conn,"SELECT * FROM traines where nip='$nip'");
                 $ambil_batch = mysqli_fetch_array($traines);
               
             
             ?>
+              <center>
             <tr>
-             <td><?= $i; ?></td>
-             <td><?= name($arraytampil3['nip']); ?></td>
+
+                <td><?= $i; ?></td>
+                <td><?= name($arraytampil3['nip']); ?></td>
              <td><?= $ambil_batch['angkatan']; ?></td>
              <td><?= $arraytampil_mark_V['total']; ?></td>
              <td><?= $arraytampil_mark_O['total']*-1; ?></td>
@@ -152,25 +155,26 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
               } else {
                  echo $poinkidung['total'] = 0;
                }
-            ?></td>
+               ?></td>
              <td><?php
                if($poinexhibition['total'] > 0) {
-                echo $poinexhibition['total'];
-              } else {
-                 echo $poinexhibition['total'] = 0;
-               }
-            ?></td>
+                 echo $poinexhibition['total'];
+                } else {
+                  echo $poinexhibition['total'] = 0;
+                }
+                ?></td>
              <td><?php
                if($points['total'] > 0) {
-                echo $points['total'];
-              } else {
-                 echo $points['total'] = 0;
-               }
-            ?></td>
+                 echo $points['total'];
+                } else {
+                  echo $points['total'] = 0;
+                }
+                ?></td>
         
-             <td><?= $total_point;?></td>
-            </tr>
-            <?php $i++; ?>
+        <td><?= $total_point;?></td>
+      </tr>
+    </center>
+      <?php $i++; ?>
             <?php endforeach; 
             } ?>
         </tbody>
