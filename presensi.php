@@ -248,7 +248,7 @@ input {
   <body>
     <script src="client.js"></script>
     <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
-    <!-- <a class="btn btn-outline-primary m-1" href="view.php">View Presensi</a> -->
+    <a class="btn btn-outline-primary m-1" href="view.php">View Presensi</a>
     <table class="table" id="bodyTable">
         <tr>
             <td style="width:35%; height:30%;">
