@@ -248,7 +248,7 @@ include 'head.php';
                                         <?php
                                         $tb_angkatan = mysqli_query($conn,"SELECT * FROM `tb_angkatan`");
                                         while ($tp_angkatan = mysqli_fetch_array($tb_angkatan)){ ?>
-                                            <option  value="<?= $tp_angkatan['id']?>"><?= $tp_angkatan['angkatan']?></option>
+                                            <option  value="<?= $tp_angkatan['angkatan']?>"><?= $tp_angkatan['angkatan']?></option>
                                         <?php  }
                                         ?>
                                     </select>
