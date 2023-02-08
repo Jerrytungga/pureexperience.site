@@ -24,38 +24,47 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
 
   <body>
 
-  <div class="card m-3">
-    <div>
-      <form action="" method="post">
-        <select name="week" id="">
-        <option value="">Pilih Minggu</option>
+    <div class="card m-3">
+      <div>
+      <form action="" method="post" id="form_id">
+        <select  class="form-control col-3 ml-4 mt-2" name="week" onChange="document.getElementById('form_id').submit();" required>
+        <option value="">Select Week</option>
            <option value="Orientation">Orientation</option>
-                                                                        <option value="PT1">PT1</option>
-                                                                        <option value="PT2">PT2</option>
-                                                                        <option value="PT3">PT3</option>
-                                                                        <option value="R1">R1</option>
-                                                                        <option value="R2">R2</option>
-                                                                        <option value="R3">R3</option>
-                                                                        <option value="R4">R4</option>
-                                                                        <option value="R5">R5</option>
-                                                                        <option value="R6">R6</option>
-                                                                        <option value="R7">R7</option>
-                                                                        <option value="R8">R8</option>
-                                                                        <option value="R9">R9</option>
-                                                                        <option value="R10">R10</option>
-                                                                        <option value="R11">R11</option>
-                                                                        <option value="R12">R12</option>
-                                                                        <option value="R13">R13</option>
-                                                                        <option value="R14">R14</option>
-                                                                        <option value="R15">R15</option>
-                                                                        <option value="R16">R16</option>
-                                                                        <option value="R17">R17</option>
-                                                                        <option value="R18">R18</option>
-                                                                        <option value="Evaluasi">Evaluasi</option>
-        </select>
-        <button type="submit" name="simpan">Cari</button>
-      </form>
+            <option value="PT1">PT1</option>
+            <option value="PT2">PT2</option>
+            <option value="PT3">PT3</option>
+            <option value="R1">R1</option>
+            <option value="R2">R2</option>
+            <option value="R3">R3</option>
+            <option value="R4">R4</option>
+            <option value="R5">R5</option>
+            <option value="R6">R6</option>
+            <option value="R7">R7</option>
+            <option value="R8">R8</option>
+            <option value="R9">R9</option>
+            <option value="R10">R10</option>
+            <option value="R11">R11</option>
+            <option value="R12">R12</option>
+            <option value="R13">R13</option>
+            <option value="R14">R14</option>
+            <option value="R15">R15</option>
+            <option value="R16">R16</option>
+            <option value="R17">R17</option>
+            <option value="R18">R18</option>
+            <option value="Evaluasi">Evaluasi</option>
+          </select>
+          <?php 
+          if($_POST['week']){ ?>
+
+<a href="view.php" class="btn btn-danger ml-4 mt-2">Reset</a>
+        <?php  }
+          ?>
+        </form>
     </div>
+    <h3 class="ml-4">
+
+      <?= $_POST['week']?>
+    </h3>
   <div class="card-body">
   <table id="example" class="display nowrap" style="width:100%">
     <thead>
@@ -90,7 +99,7 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
                   $mark_O = $array_presensi['mark'] = 'O';
                   $mark_X = $array_presensi['mark'] = 'X';
 
-                  $tampil_mark_V = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_V' and week='".$_POST['week']."' ");
+                  $tampil_mark_V = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_V' and week='".$_POST['week']."'");
                   $arraytampil_mark_V = mysqli_fetch_array($tampil_mark_V);
 
                   $tampil_mark_O = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_O' and week='".$_POST['week']."'");
@@ -99,16 +108,28 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
                   $tampil_mark_X = mysqli_query($conn, "SELECT nip, count(mark) as total FROM presensi where nip='$nip' and mark='$mark_X' and week='".$_POST['week']."'");
                   $arraytampil_mark_X = mysqli_fetch_array($tampil_mark_X);
 
+                  $doa = mysqli_query($conn, "SELECT nip, SUM(P) as total  FROM `tb_doa` WHERE nip='$nip' AND week='".$_POST['week']."'");
+                  $poindoa = mysqli_fetch_array($doa);
+                  
+                  $kidung = mysqli_query($conn, "SELECT nip, SUM(H) as total  FROM `tb_kidung` WHERE nip='$nip' AND week='".$_POST['week']."'");
+                  $poinkidung = mysqli_fetch_array($kidung);
+                  
+                  $exhibition = mysqli_query($conn, "SELECT nip, SUM(E) as total  FROM `tb_pameran` WHERE nip='$nip' AND week='".$_POST['week']."'");
+                  $poinexhibition = mysqli_fetch_array($exhibition);
+                  
+                  $ts = mysqli_query($conn, "SELECT nip, SUM(TS) as total  FROM `tb_ts` WHERE nip='$nip' AND week='".$_POST['week']."'");
+                  
                   $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where nip='$nip' group by nip ");
                   $arraytampil3 = mysqli_fetch_array($tampil3);
-
+                  
                   $total_point = $arraytampil_mark_O['total']*-1 + $arraytampil_mark_X['total']*-2;
-                ?>
+                  ?>
 
-             <?php foreach ($tampil3 as $row) : 
+<?php foreach ($tampil3 as $row) : 
+  $points = mysqli_fetch_array($ts);
                 $traines = mysqli_query ($conn,"SELECT * FROM traines where nip='$nip'");
                 $ambil_batch = mysqli_fetch_array($traines);
-                
+              
             
             ?>
             <tr>
@@ -118,15 +139,35 @@ $ambil_data = mysqli_query ($conn,"SELECT * FROM presensi GROUP BY nip");
              <td><?= $arraytampil_mark_V['total']; ?></td>
              <td><?= $arraytampil_mark_O['total']*-1; ?></td>
              <td><?= $arraytampil_mark_X['total'] *-2; ?></td>
-         
-
-
-           
-            
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
+             <td><?php
+             if($poindoa['total'] > 0) {
+              echo $poindoa['total'];
+            } else {
+               echo $poindoa['total'] = 0;
+             }
+               ?></td>
+             <td><?php
+              if($poinkidung['total'] > 0) {
+                echo $poinkidung['total'];
+              } else {
+                 echo $poinkidung['total'] = 0;
+               }
+            ?></td>
+             <td><?php
+               if($poinexhibition['total'] > 0) {
+                echo $poinexhibition['total'];
+              } else {
+                 echo $poinexhibition['total'] = 0;
+               }
+            ?></td>
+             <td><?php
+               if($points['total'] > 0) {
+                echo $points['total'];
+              } else {
+                 echo $points['total'] = 0;
+               }
+            ?></td>
+        
              <td><?= $total_point;?></td>
             </tr>
             <?php $i++; ?>
