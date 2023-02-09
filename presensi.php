@@ -249,7 +249,7 @@ input {
     <script src="client.js"></script>
     <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
     <!-- <a class="btn btn-outline-primary m-1" href="view.php?akt=<?= $AKT;?>">View Presensi</a> -->
-    <!-- <a class="btn btn-info m-1" href="presensipmliving.php?akt=<?= $AKT;?>">Presensi PM & LIVING <span class="badge bg-danger text-light">New</span></a> -->
+    <a class="btn btn-info m-1" href="presensipm.php?akt=<?= $AKT;?>">Presensi PM & LIVING <span class="badge bg-danger text-light">New</span></a>
     <table class="table" id="bodyTable">
         <tr>
             <td style="width:35%; height:30%;">

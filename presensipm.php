@@ -13,147 +13,22 @@ $hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H:i:s');
 
 if (isset($_POST['nip'])) {
-  $nip = $_POST['nip'];
-  $sql_traines = mysqli_query($conn, "SELECT angkatan, semester, Asisten FROM `traines` WHERE nip='$nip'");
-  $data_angkatan = mysqli_fetch_array($sql_traines);
-  $angkatan = $data_angkatan['angkatan'];
-  $smt2 = $data_angkatan['semester'];
-  $asisten_ = $data_angkatan['Asisten'];
-}
-
-$jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE batch='$AKT' and status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
-$cek_presensi = mysqli_fetch_array($jadwal1);
-$cek = mysqli_num_rows($jadwal1);
-
-$cekid = mysqli_query($conn, "SELECT nip FROM traines WHERE nip='".$_POST['nip']."'");
-$cekdata_id = mysqli_fetch_array($cekid);
-$cek__id = mysqli_num_rows($cekid);
-
-$cek_angkatan_jadwal = mysqli_query($conn, "SELECT * FROM `schedule` where batch='$AKT' and  status='Aktif' and date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
-$cek_batch = mysqli_fetch_array($cek_angkatan_jadwal);
-$cek_batch['batch'];
-
-// set alarm
-$alert_alarm = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE  batch='$AKT' and status='Aktif' and  `date`='$hari_ini' and `presensi_time`  < '$waktu_sekarang' and  `timer` > '$waktu_sekarang' "));
-$alarm = $alert_alarm['nada_alarm'];
-if ($alert_alarm['presensi_time'] < $waktu_sekarang && $alert_alarm['start_time'] > $waktu_sekarang) { ?>
-  <audio src="music/<?= $alarm; ?>" autoplay="autoplay" hidden="hidden"></audio>
-<?php }
-
-
-if ($angkatan == $cek_batch['batch']) {
-  $angkatan_sama = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and batch='$AKT' and date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
-  $jadwal_angkatan_sama = mysqli_fetch_array($angkatan_sama);
-  $id_1 = $jadwal_angkatan_sama['id'];
-  $week1 = $jadwal_angkatan_sama['week'];
-  $batch1 = $jadwal_angkatan_sama['batch'];
-  $id_kegiatan2 = $jadwal_angkatan_sama['id_activity'];
-  $info1 = $jadwal_angkatan_sama['info'];
-  $waktu1 = $jadwal_angkatan_sama['start_time'];
-  $jam_akhir1 = $jadwal_angkatan_sama['end_time'];
-  $waktuabsent1 = $jadwal_angkatan_sama['presensi_time'];
-  $timer1 = $jadwal_angkatan_sama['timer'];
-
-  if ($angkatan == $cek_batch['batch']) {
-    // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
-    if ($waktuabsent1 < $waktu_sekarang && $jam_akhir1 > $waktu_sekarang) {
-      if ($waktuabsent1 < $waktu_sekarang && $timer1 > $waktu_sekarang) {
-        $hasil1 = 'V';
-      } 
-      if ($waktu1 < $waktu_sekarang && $timer1 > $waktu_sekarang) {
-        $hasil1 = 'O';
-      } 
-      if ($waktu1 < $waktu_sekarang && $timer1 < $waktu_sekarang) {
-        $hasil1 = 'X';
-      }
-    }
-    if (isset($_POST['nip'])) {
-      $nip = htmlspecialchars($_POST['nip']);
-      $sql_cekdata_presensi = mysqli_num_rows(mysqli_query($conn, "SELECT nip, angkatan FROM `traines` WHERE nip='$nip' and angkatan='" . $cek_batch['batch'] . "'"));
-      if ($sql_cekdata_presensi > 0) {
-        $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi`"));
-        $idbr2 = $max['id'] + 1;
-        $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`,`id_presensi`,`schedule_id`,`semester`,`asisten`) VALUES ('$nip','$batch1','$week1','$id_kegiatan2','$waktu_sekarang','$hasil1','$info1','$idbr2','$id_1','$smt2','$asisten_')");
-        
-        if($inputpresensi){
-          echo notice(2);
-        } else {
-          // $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Hanya bisa 1 kali Presensi!</strong></p>';
-          echo notice(4);
-        }
-      }
-    }
-  }
-  if (isset($_POST['nip'])) {
-    if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
-       echo notice(4);
-     }
-   }
-}
-
-if ($cek_batch['batch'] == 'ALL') {
-  $sqli_jadwal_All = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and `batch`='" . $cek_batch['batch'] . "' and  date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
-  $array_jadwal_ALL = mysqli_fetch_array($sqli_jadwal_All);
-  $id_ = $array_jadwal_ALL['id'];
-  $week = $array_jadwal_ALL['week'];
-  $batch = $array_jadwal_ALL['batch'];
-  $id_kegiatan1 = $array_jadwal_ALL['id_activity'];
-  $info = $array_jadwal_ALL['info'];
-  $waktu = $array_jadwal_ALL['start_time'];
-  $jam_akhir = $array_jadwal_ALL['end_time'];
-  $waktuabsent = $array_jadwal_ALL['presensi_time'];
-  $timer = $array_jadwal_ALL['timer'];
-  if ($batch) {
-    // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
-    if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
-      if ($waktuabsent < $waktu_sekarang && $timer > $waktu_sekarang) {
-        $hasil = 'V';
-      } 
-      if ($waktu < $waktu_sekarang && $timer > $waktu_sekarang) {
-        $hasil = 'O';
-      } 
-      if ($waktu < $waktu_sekarang && $timer < $waktu_sekarang) {
-        $hasil = 'X';
-      }
-
-
-    }
-
-
-
-
-    if (isset($_POST['nip'])) {
-      $nip = htmlspecialchars($_POST['nip']);
-      $sql_cekdata_nip = mysqli_num_rows(mysqli_query($conn, "SELECT nip, angkatan FROM `traines` WHERE nip='$nip' and angkatan='$angkatan'"));
-      if ($sql_cekdata_nip > 0) {
-        $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi` WHERE presensi_date=date(now()) AND schedule_id='$id_'"));
-        $idbr = $max['id'] + 1;
-        $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`, `id_presensi`, `schedule_id`,`semester`,`asisten`) VALUES ('$nip','$batch','$week','$id_kegiatan1','$waktu_sekarang','$hasil','$info','$idbr','$id_','$smt2','$asisten_')");
+  $nip = htmlspecialchars($_POST['nip']);
+  $jadwal = htmlspecialchars($_POST['jadwal']);
+  $ambil_traines = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `traines` WHERE nip='$nip'"));
+  $ambildata_jadwal = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `schedule` WHERE id='$jadwal'"));
+  $idkegiatan = $ambildata_jadwal['id_activity'];
+  $minggu = $ambildata_jadwal['week'];
+  $mark_ = "V";
+  $smt2 = $ambil_traines['semester'];
+  $asisten_ = $ambil_traines['Asisten'];
+  $angkatan = $ambil_traines['angkatan'];
+  
+  $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi`"));
+  $idbr = $max['id'] + 1;
+  $masukan_data =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`,`id_presensi`,`schedule_id`,`semester`,`asisten`) VALUES ('$nip','$angkatan','$minggu','$idkegiatan','$waktu_sekarang','$mark_','$idbr','$jadwal','$smt2','$asisten_')");
           
-        if($inputpresensi){
-          echo notice(2);
-        } else {
-          echo notice(4);
-          // $Announcement = $_SESSION['Announcement'] = '<strong>Hanya bisa 1 kali Presensi!</strong>';
-
-        }
-      } 
-    }
   }
-
-}
-if (isset($_POST['nip'])) {
-  if ($cek__id == 0) {
-    echo notice(5);
-  }
-}
-
-if (isset($_POST['nip'])) {
- if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
-    echo notice(4);
-  }
-}
-
 
 
 
@@ -225,22 +100,7 @@ $(document).ready(function(){
 });
 </script>
 
-<style>
-input {
-  width: 0px;
-  height: 0px;
-  border:0px;
-  outline: none;
-  border-radius: 5px; 
-  margin-bottom: 10px;
-  margin-top: 5px;
-  font-family: sans-serif,Arial;
-  font-size: 16px;
-  color: white; 
-}
 
-
-</style>
 
   </head>
 
@@ -248,15 +108,14 @@ input {
   <body>
     <script src="client.js"></script>
     <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
-    <a class="btn btn-outline-primary m-1" href="view.php?akt=<?= $AKT;?>">View Presensi</a>
-   
-    <a class="btn btn-info m-1" href="presensipmliving.php?akt=<?= $AKT;?>">Presensi PM & LIVING <span class="badge bg-danger text-light">New</span></a>
+    <!-- <a class="btn btn-outline-primary m-1" href="view.php?akt=<?= $AKT;?>">View Presensi</a> -->
+    <a class="btn btn-info m-1" href="presensipm.php?akt=<?= $AKT;?>">Presensi PM & LIVING <span class="badge bg-danger text-light">New</span></a>
     <table class="table" id="bodyTable">
         <tr>
             <td style="width:35%; height:30%;">
                 <center>
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3" style="background-color: #434233;">
+                        <div class="card-header py-3" style="background-color: #16FF00;">
                             <h4 class="m-0 font-weight-bold text-white" id='dateToday'> </h4>
                             <!--<p id='dateToday' style="font-size:25pt"> -->
                                 <script type="text/javascript">
@@ -281,7 +140,7 @@ input {
             <td style="width:35%; height:30%;">
                
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3" style="background-color: #243763;">
+                        <div class="card-header py-3" style="background-color: #16FF00;">
                             <h2 class="m-0 font-weight-bold text-white" id='dateToday'> 
                                RFID 
                                <div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;" role="status">
@@ -291,12 +150,10 @@ input {
                             
                         </div>
                         <div class="card-body">
-                           <form action="" method="post">
-          <select name="jadwal" id="" class="form-control">
+                        <form action="" method="post">
+          <select name="jadwal" class="form-control m-1" id="" required>
             <option value="">Pilih Jadwal</option>
             <?php
-             
-           
             $tampilkan_jadwal = mysqli_query($conn,"SELECT * FROM `schedule`");
             while ($tampilkan = mysqli_fetch_array($tampilkan_jadwal)){ ?>
               <option value="<?= $tampilkan['id'];?>"><?= activity($tampilkan['id_activity']);?></option>
@@ -304,13 +161,12 @@ input {
           <?php  }
             ?>
           </select>
-        </form>
-         
-                <form action="" method="post">
-                          <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
-                          <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
 
-                          </form>
+          <input type="text" class="form-control m-1" name="nip" required>
+        <button1 type="submit" name="simpan">Simpan</button1>
+        </form>
+               
+           
                            
                           
                         </div>
@@ -354,7 +210,7 @@ input {
             <td style="height:10%;">
                 <!-- Basic Card Example -->
                             <div class="card shadow mb-4 anouncement_marquee">
-                                <div class="card-header py-3" style="background-color: #243763;">
+                                <div class="card-header py-3" style="background-color: #16FF00;">
                                     <marquee><h3 class="m-0 font-weight-bold text-white">A  N  N  O  U  N  C  E  M  E  N  T</h3></marquee>
                                 </div>
                                 <div class="card-body"><font size="4pt"><p id="anouncement">
@@ -365,7 +221,7 @@ input {
             <td style="height:10%;">
                 <!-- Basic Card Example -->
                             <div class="card shadow mb-4 anouncement_marquee">
-                            <div class="card-header py-3" style="background-color: #243763;">
+                            <div class="card-header py-3" style="background-color: #16FF00;">
                             <meta http-equiv="refresh" content="<?= $sec ?>;URL='<?= $page ?>'">
                                     <h3 class="m-0 font-weight-bold text-white">View Presence Summary</h3>
                                 </div>
@@ -394,7 +250,7 @@ input {
                       $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM traines WHERE nip='$nama_'"));
                       return $sqly['name'];
                     }
-                    $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where batch='$AKT' and presensi_date='$hari_ini'  order by presensi_time DESC");
+                    $tampil3 = mysqli_query($conn, "SELECT * FROM presensi where presensi_date='$hari_ini'  order by presensi_time DESC");
                     $arraytampil3 = mysqli_fetch_array($tampil3);
                         foreach ($tampil3 as $data) :
                     ?>
