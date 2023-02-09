@@ -14,11 +14,11 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link" href="index.php">
             <span>Dashboard</span>
         </a>
-    </li>
+    </li> -->
 
     <!-- Divider -->
     <!-- <hr class="sidebar-divider"> -->
@@ -30,11 +30,11 @@
             <span>My Trainee</span></a>
     </li>
 
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link" href="presensi.php">
             <i class="fas fa-fw fa-table"></i>
             <span>Presensi</span></a>
-    </li>
+    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

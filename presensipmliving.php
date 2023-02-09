@@ -248,14 +248,15 @@ input {
   <body>
     <script src="client.js"></script>
     <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
-    <!-- <a class="btn btn-outline-primary m-1" href="view.php?akt=<?= $AKT;?>">View Presensi</a> -->
-    <!-- <a class="btn btn-info m-1" href="presensipmliving.php?akt=<?= $AKT;?>">Presensi PM & LIVING <span class="badge bg-danger text-light">New</span></a> -->
+    <a class="btn btn-outline-primary m-1" href="view.php?akt=<?= $AKT;?>">View Presensi</a>
+   
+    <a class="btn btn-info m-1" href="presensipmliving.php?akt=<?= $AKT;?>">Presensi PM & LIVING <span class="badge bg-danger text-light">New</span></a>
     <table class="table" id="bodyTable">
         <tr>
             <td style="width:35%; height:30%;">
                 <center>
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3" style="background-color: #243763;">
+                        <div class="card-header py-3" style="background-color: #434233;">
                             <h4 class="m-0 font-weight-bold text-white" id='dateToday'> </h4>
                             <!--<p id='dateToday' style="font-size:25pt"> -->
                                 <script type="text/javascript">
@@ -290,11 +291,21 @@ input {
                             
                         </div>
                         <div class="card-body">
-                          
-                <a href="prayer.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3">Prayer</a>
-                <a href="Hymns.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3">Hymns</a>
-                <a href="Exhibition.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3">Exhibition</a>
-                <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3 ">Prophesying</a>
+                           <form action="" method="post">
+          <select name="jadwal" id="" class="form-control">
+            <option value="">Pilih Jadwal</option>
+            <?php
+             
+           
+            $tampilkan_jadwal = mysqli_query($conn,"SELECT * FROM `schedule`");
+            while ($tampilkan = mysqli_fetch_array($tampilkan_jadwal)){ ?>
+              <option value="<?= $tampilkan['id'];?>"><?= activity($tampilkan['id_activity']);?></option>
+
+          <?php  }
+            ?>
+          </select>
+        </form>
+         
                 <form action="" method="post">
                           <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
                           <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
