@@ -154,7 +154,7 @@ $(document).ready(function(){
           <select name="jadwal" class="form-control m-1" id="" required>
             <option value="">Pilih Jadwal</option>
             <?php
-            $tampilkan_jadwal = mysqli_query($conn,"SELECT * FROM `schedule`");
+            $tampilkan_jadwal = mysqli_query($conn,"SELECT * FROM `schedule` where `date`='$hari_ini'");
             while ($tampilkan = mysqli_fetch_array($tampilkan_jadwal)){ ?>
               <option value="<?= $tampilkan['id'];?>"><?= activity($tampilkan['id_activity']);?></option>
 
