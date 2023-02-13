@@ -22,6 +22,17 @@ if (isset($_POST['login'])) {
         header("Location: asisten/traines.php");
       }
     }
+    $sqlitraines = "SELECT * FROM traines WHERE username ='$mail' and sandi='$Sandi'";
+    $result_traines = mysqli_query($conn, $sqlitraines);
+    if ($result_traines->num_rows > 0) {
+      $row1 = mysqli_fetch_assoc($result_traines);
+      $_SESSION['id'] = $row1['nip'];
+      if ($result_traines) {
+        header("Location: traines/traines.php");
+      }
+    }
+
+    
 
 
    
