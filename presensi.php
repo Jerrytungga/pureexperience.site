@@ -21,9 +21,18 @@ if (isset($_POST['nip'])) {
   $asisten_ = $data_angkatan['Asisten'];
 }
 
+
 $jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE batch='$AKT' and status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $cek_presensi = mysqli_fetch_array($jadwal1);
 $cek = mysqli_num_rows($jadwal1);
+
+$data_jadwal = mysqli_query($conn, "SELECT date FROM schedule ");
+$cek_presensi2 = mysqli_fetch_array($data_jadwal);
+if($hari_ini > $cek_presensi2['date']){
+ mysqli_query($conn, "UPDATE `schedule` SET `status` = 'Tidak Aktif' WHERE `schedule`.`status` ='Aktif' and date < '$hari_ini'");
+    
+}
+
 
 $cekid = mysqli_query($conn, "SELECT nip FROM traines WHERE nip='".$_POST['nip']."'");
 $cekdata_id = mysqli_fetch_array($cekid);
@@ -53,6 +62,7 @@ if ($angkatan == $cek_batch['batch']) {
   $jam_akhir1 = $jadwal_angkatan_sama['end_time'];
   $waktuabsent1 = $jadwal_angkatan_sama['presensi_time'];
   $timer1 = $jadwal_angkatan_sama['timer'];
+
 
   if ($angkatan == $cek_batch['batch']) {
     // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
