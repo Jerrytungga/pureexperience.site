@@ -342,7 +342,7 @@ include 'head.php';
                                                          </a>
                                                        
                                                          <form action="" method="post">
-                                                            <button type="submit" name="hapus" value="<?= $row['id']; ?>">Hapus</button>
+                                                            <button type="submit" class="btn btn-danger m-2" name="hapus" value="<?= $row['id']; ?>">Hapus</button>
                                                          </form>
                                                             <div class="modal fade" id="editjadwal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
