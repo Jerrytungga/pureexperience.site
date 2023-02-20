@@ -175,7 +175,7 @@ include 'head.php';
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">Nada Alarm :</label>
-                                                                    <select name="ringtones" class="form-control">
+                                                                    <select name="ringtones" required class="form-control">
                                                                         <option value="">Pilih Alarm</option>
                                                                         <?php
                                                                         $ringtones = mysqli_query($conn, "SELECT * FROM `ringtones` ");
@@ -191,7 +191,7 @@ include 'head.php';
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label for="">Minggu Ke :</label>
-                                                                    <select name="weekly" class="form-control">
+                                                                    <select name="weekly" required class="form-control">
                                                                         <option value="">Pilih Minggu</option>
                                                                         <option value="Orientation">Orientation</option>
                                                                         <option value="PT1">PT1</option>
@@ -221,7 +221,7 @@ include 'head.php';
                                                                 </div>
                                                                 <div class="form-group res-mg-t-15">
                                                                     <label for="">Pembicara :</label>
-                                                                    <select name="pembicara" class="form-control">
+                                                                    <select name="pembicara" required class="form-control">
                                                                         <option value="">Pilih Pembicara</option>
                                                                         <?php
                                                                         $Trainer = mysqli_query($conn, "SELECT * FROM `trainer` ");
@@ -234,19 +234,19 @@ include 'head.php';
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">Tanggal :</label>
-                                                                    <input name="date" type="date" class="form-control" placeholder="Date">
+                                                                    <input name="date" type="date" required class="form-control" placeholder="Date">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">Watku Akhir :</label>
-                                                                    <input name="waktu_akhir" type="time" class="form-control" placeholder="End Time">
+                                                                    <input name="waktu_akhir" required type="time" class="form-control" placeholder="End Time">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">Watku Akhir Presensi :</label>
-                                                                    <input name="waktu_akhir_presensi" type="time" class="form-control" placeholder="waktu_akhir_presensi">
+                                                                    <input name="waktu_akhir_presensi" required type="time" class="form-control" placeholder="waktu_akhir_presensi">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">Pesan Untuk Trainee :</label>
-                                                                    <textarea name="pesan" id="" cols="4" rows="2" class="form-control"></textarea>
+                                                                    <textarea name="pesan" id="" required cols="4" rows="2" class="form-control"></textarea>
                                                                 </div>
 
                                                             </div>
