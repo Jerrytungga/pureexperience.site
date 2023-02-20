@@ -60,6 +60,15 @@ if (isset($_POST['simpan_perubahan'])) {
     window.alert('Data Changed Successfully');
     window.location.href='jadwal.php';
     </script>");
+
+
+}
+if (isset($_POST['hapus'])) {
+mysqli_query($conn,"DELETE FROM `schedule` WHERE `id`='".$_POST['hapus']."'");
+echo ("<script LANGUAGE='JavaScript'>
+    window.alert('Data Delete Successfully');
+    window.location.href='jadwal.php';
+    </script>");
 }
 $data = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' ORDER BY id DESC");
 $data_Schedule = mysqli_fetch_array($data);
@@ -332,6 +341,9 @@ include 'head.php';
                                                          Edit
                                                          </a>
                                                        
+                                                         <form action="" method="post">
+                                                            <button type="submit" name="hapus" value="<?= $row['id']; ?>">Hapus</button>
+                                                         </form>
                                                             <div class="modal fade" id="editjadwal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
