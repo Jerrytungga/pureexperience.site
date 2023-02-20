@@ -82,65 +82,11 @@ include 'head.php';
                             <td><?= $row['name'];  ?></td>
                             <td><?= $row['angkatan'];  ?></td>
                             <td>
-                            <button type="button" class="btn text-light" data-toggle="modal" data-target="#presensi<?= $row['nip']; ?>" style="background-color: #68B984;">
-                                View Presensi 
-                               
-                               
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="presensi<?= $row['nip']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    <div class="modal-header" style="background-color: #68B984;">
-                                        <h5 class="modal-title" id="staticBackdropLabel" style="color: #ffff;">Presensi</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body " id="modal-editTraine">
-                                        <?php
-                                        $tampilan_presensi = mysqli_query($conn,"SELECT * FROM `presensi` where `nip`='".$row['nip']."'  GROUP BY nip");
-                                        ?>
-                
-                                    <table class="table table-striped">
-                                        <thead style="color: #171717;">
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Jadwal</th>
-                                            <th scope="col">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style="color: #567189;">
-                                        <?php
-                                        
-                                             $ambildata_traines1 = mysqli_query($conn,"SELECT * FROM `presensi` WHERE `nip`='".$row['nip']."'");
-                                             $ambildata_traines_ = mysqli_fetch_array($ambildata_traines1);
-                                            $i = 1;
-                                            foreach ($ambildata_traines1 as $data) :
-                                            ?>
-
-                                            <tr>
-                                            <th scope="row"><?= $i;  ?></th>
-                                            <td><?= activity($data['id_activity']); ?></td>
-                                            <td><?= $data['mark']; ?></td>
-                                            </tr>
-                                            <?php $i++; ?>
-                                                 <?php endforeach; 
-                                            
-                                                 ?>
-                                            
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
+                                <a href="tanah_permai.php" class="btn" style="background-color: #CEEDC7; color:#1A0000;">Tanah Permai</a>
+                                <a href="" class="btn" style="background-color: #16FF00; color:#1A0000;">Catatan Doa</a>
                             </td>
+
+                          
                          
                         </tr>
                     

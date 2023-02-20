@@ -25,9 +25,14 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
+        <a class="nav-link" href="tanah_permai.php">
+            <i class="fas fa-fw fa-file"></i>
+            <span>Tanah Permai</span></a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="traines.php">
-            <i class="fas fa-fw fa-users"></i>
-            <span>My Trainee</span></a>
+            <i class="fas fa-fw fa-file"></i>
+            <span>Buku Doa</span></a>
     </li>
 
     <!-- <li class="nav-item">
