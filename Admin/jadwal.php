@@ -328,14 +328,10 @@ include 'head.php';
                                                     <!-- <td class="datatable-ct"><i class="fa fa-check"></i>
                                                     </td> -->
                                                     <td>
-                                                        <?php
-                                                        if ($row['end_time'] > $waktu_sekarang && $row['date'] > $hari_ini ) { ?>
-                                                           <a id="edit" class="btn btn-warning" data-toggle="modal" data-target="#editjadwal" data-idj="<?= $row['id']; ?>" data-angkatan="<?= $row['batch']; ?>" data-info="<?= $row['info']; ?>" data-minggu="<?= $row['week']; ?>" data-starttime="<?= $row['start_time']; ?>" data-activity="<?= $row['id_activity']; ?>" data-trainer="<?= $row['id_trainer']; ?>" data-berita="<?= $row['id_berita'];?>" data-date="<?= $row['date']; ?>" data-akhirwaktu="<?= $row['end_time']; ?>" data-waktupresensi="<?= $row['presensi_time']; ?>" data-timer="<?= $row['timer']; ?>" data-nada="<?= $row['nada_alarm']; ?>">
-                                                            Edit
-                                                            </a>
-                                                        <?php
-                                                        }
-                                                        ?>
+                                                        <a id="edit" class="btn btn-warning" data-toggle="modal" data-target="#editjadwal" data-idj="<?= $row['id']; ?>" data-angkatan="<?= $row['batch']; ?>" data-info="<?= $row['info']; ?>" data-minggu="<?= $row['week']; ?>" data-starttime="<?= $row['start_time']; ?>" data-activity="<?= $row['id_activity']; ?>" data-trainer="<?= $row['id_trainer']; ?>" data-berita="<?= $row['id_berita'];?>" data-date="<?= $row['date']; ?>" data-akhirwaktu="<?= $row['end_time']; ?>" data-waktupresensi="<?= $row['presensi_time']; ?>" data-timer="<?= $row['timer']; ?>" data-nada="<?= $row['nada_alarm']; ?>">
+                                                         Edit
+                                                         </a>
+                                                       
                                                             <div class="modal fade" id="editjadwal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
