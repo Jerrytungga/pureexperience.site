@@ -9,21 +9,29 @@ $jadwal_minggu = mysqli_query($conn, "SELECT MAX(week) as akhir FROM `presensi` 
 $ambil_max = mysqli_fetch_array($jadwal_minggu);
 if (isset($_POST['nip'])) {
   $nip = $_POST['nip'];
+  $jadwal = $_POST['jadwal'];
   $sql_traines = mysqli_query($conn, "SELECT angkatan, semester, Asisten FROM `traines` WHERE nip='$nip'");
   $data_angkatan = mysqli_fetch_array($sql_traines);
   $angkatan = $data_angkatan['angkatan'];
   $smt2 = $data_angkatan['semester'];
   $asisten_ = $data_angkatan['Asisten'];
 }
+if ($nip > 0){
 if (isset($_POST['nip'])) {
 $nip = htmlspecialchars($_POST['nip']);
 $week = $ambil_max['akhir'];
 $poindoa = 1;
-$masukan_data = mysqli_query($conn, "INSERT INTO `tb_doa`(`nip`,`batch`,`week`, `P`,`asisten`) VALUES ('$nip','$angkatan','$week','$poindoa','$asisten_')");
-if ($masukan_data){
+  $masukan_data = mysqli_query($conn, "INSERT INTO `tb_doa`(`nip`,`batch`,`week`, `P`,`asisten`,`jadwal`) VALUES ('$nip','$angkatan','$week','$poindoa','$asisten_','$jadwal')");
+  if ($masukan_data){
     echo notice(5);
+  } else {
+    echo '<script type="text/javascript">';
+    echo ' alert("Data Prayer Anda sudah ada!")';  //not showing an alert box.
+    echo '</script>';
+  }
 }
 }
+
   $doa = mysqli_query($conn, "SELECT nip, SUM(P) as p FROM `tb_doa` where week='".$ambil_max['akhir']."' GROUP BY nip");
 ?>
 <!DOCTYPE html>
@@ -73,7 +81,7 @@ if ($masukan_data){
       input {
   width: 0px;
   height: 0px;
-  border:0px;
+  border:2px;
   outline: none;
   border-radius: 5px; 
   margin-bottom: 10px;
@@ -90,17 +98,35 @@ if ($masukan_data){
   
     <table class="table" id="bodyTable">
         <tr>
-        <a href="presensi.php?akt=<?= $AKT;?>" class="btn btn-danger btn-sm m-2">Back</a>
+          <div class="btn-toolbar">
+            <a href="presensi.php?akt=<?= $AKT;?>" class="btn btn-danger btn-sm m-2">Back</a>
+            <form action="" method="post"  id="nip">
+            <select name="jadwal" class="form-control col-2 m-2" id=""   autocomplete="off"  required="" onChange="document.getElementById('nip').submit();">
+              <option value="">Silahkan Pilih Jadwal</option>
+             <?php
+                function activity($activity)
+                {
+                    global $conn;
+                    $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$activity'"));
+                    return $sqly['items'];
+                }
+              $tampilkan_jadwal_mingguan = mysqli_query($conn,"SELECT * FROM `schedule` where `date`='$hari_ini'");
+              while ($tampilkan_jadwal_mingguan_ = mysqli_fetch_array($tampilkan_jadwal_mingguan)) {  ?>
+              <option value="<?= $tampilkan_jadwal_mingguan_['id'];?>"><?= activity($tampilkan_jadwal_mingguan_['id_activity']);?></option>
+            <?php  }
+              ?>
+            </select>
+
+          
+          </div>
             <td style="width:65%; height:30%;">
                 <center>
                     <div class="card shadow mb-4">
-                     
-                        <div class="card-header py-3" style="background-color: #243763;">
-                            <div class="spinner-grow text-danger" role="status">
+                        <div class="card-header py-3" style="background-color: #0E8388;">
+                        <div class="spinner-grow text-danger" role="status">
                             <form action="" method="post">
                                   <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
                                   <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
-        
                                   </form>
   <span class="sr-only">Loading...</span>
 </div>
@@ -133,6 +159,8 @@ if ($masukan_data){
             <thead>
                         <tr>
                             <th>Name</th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -180,7 +208,7 @@ if ($masukan_data){
             <td style="height:10%;">
                 <!-- Basic Card Example -->
                             <div class="card shadow mb-4 anouncement_marquee">
-                                <div class="card-header py-3" style="background-color: #243763;">
+                                <div class="card-header py-3" style="background-color: #0E8388;">
                                     <marquee><h3 class="m-0 font-weight-bold text-white">A  N  N  O  U  N  C  E  M  E  N  T</h3></marquee>
                                 </div>
                                 <div class="card-body"><font size="4pt"><p id="anouncement">

@@ -301,10 +301,10 @@ input {
                         </div>
                         <div class="card-body">
                           
-                <a href="prayer.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3">Prayer</a>
-                <a href="Hymns.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3">Hymns</a>
-                <a href="Exhibition.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3">Exhibition</a>
-                <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn btn-success btn-sm ml-3 ">Prophesying</a>
+                <a href="prayer.php?akt=<?= $AKT;?>" class="btn text-light btn-sm ml-3" style="background-color: #0E8388;">Prayer</a>
+                <a href="Hymns.php?akt=<?= $AKT;?>" class="btn text-light btn-sm ml-3" style="background-color: #3A98B9;">Hymns</a>
+                <a href="Exhibition.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-3" style="background-color: #FFED00;">Exhibition</a>
+                <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-3 " style="background-color: #BFDB38;">Prophesying</a>
                 <form action="" method="post">
                           <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
                           <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
@@ -322,6 +322,7 @@ input {
                     <thead>
                         <tr>
                             <th>Today's Schedule</th>
+                            <th>Presensi Time</th>
                             <th>Start Time</th>
                         </tr>
                     </thead>
@@ -338,6 +339,7 @@ input {
                     ?>
                         <tr>
                             <td><?= activity($row['id_activity']); ?></td>
+                            <td><?= $row['presensi_time']; ?></td>
                             <td><?= $row['start_time']; ?></td>
                            
                             
@@ -375,7 +377,7 @@ input {
                             <th></th>
                             <th></th>
                             <th>Schedule</th>
-                            <th></th>
+                          
                             <th></th>
                             <th>Status</th>
                         </tr>
@@ -402,7 +404,7 @@ input {
                             <td><?= activity($data['id_activity']); ?></td>
                             <td></td>
                             <td></td>
-                            <td></td>
+                           
                             <td></td>
                             <td><?php
                            if($data['mark'] == "V") { ?>
