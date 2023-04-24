@@ -21,6 +21,17 @@ if (isset($_POST['nip'])) {
   $asisten_ = $data_angkatan['Asisten'];
 }
 
+// cek angkatan presensi ijin
+if (isset($_POST['ijin'])) {
+  $nip = $_POST['ijin'];
+  $sql_traines = mysqli_query($conn, "SELECT angkatan, semester, Asisten FROM `traines` WHERE nip='$nip'");
+  $data_angkatan = mysqli_fetch_array($sql_traines);
+  $angkatan34 = $data_angkatan['angkatan'];
+  $smt2 = $data_angkatan['semester'];
+  $asisten_ = $data_angkatan['Asisten'];
+}
+/////////
+
 
 $jadwal1 = mysqli_query($conn, "SELECT * FROM schedule WHERE batch='$AKT' and status='Aktif' and  date='$hari_ini' and end_time > '$waktu_sekarang'   ORDER BY start_time ASC");
 $cek_presensi = mysqli_fetch_array($jadwal1);
@@ -77,6 +88,7 @@ if ($angkatan == $cek_batch['batch']) {
         $hasil1 = 'X';
       }
     }
+
     if (isset($_POST['nip'])) {
       $nip = htmlspecialchars($_POST['nip']);
       $sql_cekdata_presensi = mysqli_num_rows(mysqli_query($conn, "SELECT nip, angkatan FROM `traines` WHERE nip='$nip' and angkatan='" . $cek_batch['batch'] . "'"));
@@ -84,22 +96,45 @@ if ($angkatan == $cek_batch['batch']) {
         $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi`"));
         $idbr2 = $max['id'] + 1;
         $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`,`id_presensi`,`schedule_id`,`semester`,`asisten`) VALUES ('$nip','$batch1','$week1','$id_kegiatan2','$waktu_sekarang','$hasil1','$info1','$idbr2','$id_1','$smt2','$asisten_')");
-        
+
         if($inputpresensi){
           echo notice(2);
         } else {
-          // $cekdata = $_SESSION['cek_data'] = '<p class="text-danger"><strong>Hanya bisa 1 kali Presensi!</strong></p>';
           echo notice(4);
         }
+        
       }
     }
+
+}
   }
+  if ($cek_batch['batch'] == $angkatan34) {
+    $angkatan_sama = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and batch='$AKT' and date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
+    $jadwal_angkatan_sama = mysqli_fetch_array($angkatan_sama);
+    $id_1 = $jadwal_angkatan_sama['id'];
+    $week1 = $jadwal_angkatan_sama['week'];
+    $batch1 = $jadwal_angkatan_sama['batch'];
+    $id_kegiatan2 = $jadwal_angkatan_sama['id_activity'];
+    $info1 = $jadwal_angkatan_sama['info'];
+    $waktu1 = $jadwal_angkatan_sama['start_time'];
+    $jam_akhir1 = $jadwal_angkatan_sama['end_time'];
+    $waktuabsent1 = $jadwal_angkatan_sama['presensi_time'];
+    $timer1 = $jadwal_angkatan_sama['timer'];
+    if ($cek_batch['batch'] == $angkatan34) {
+    if (isset($_POST['ijin'])) {
+    $nip_2 = $_POST['ijin'];
+    $hasil_ = 'I';
+    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi`"));
+    $idbr2 = $max['id'] + 1;
+    $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`,`id_presensi`,`schedule_id`,`semester`,`asisten`) VALUES ('$nip_2','$batch1','$week1','$id_kegiatan2','$waktu_sekarang','$hasil_','$info1','$idbr2','$id_1','$smt2','$asisten_')");
+  }
+ }
+}
   if (isset($_POST['nip'])) {
     if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
        echo notice(4);
      }
    }
-}
 
 if ($cek_batch['batch'] == 'ALL') {
   $sqli_jadwal_All = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and `batch`='" . $cek_batch['batch'] . "' and  date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
@@ -139,7 +174,6 @@ if ($cek_batch['batch'] == 'ALL') {
         $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi` WHERE presensi_date=date(now()) AND schedule_id='$id_'"));
         $idbr = $max['id'] + 1;
         $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`, `id_presensi`, `schedule_id`,`semester`,`asisten`) VALUES ('$nip','$batch','$week','$id_kegiatan1','$waktu_sekarang','$hasil','$info','$idbr','$id_','$smt2','$asisten_')");
-          
         if($inputpresensi){
           echo notice(2);
         } else {
@@ -148,6 +182,18 @@ if ($cek_batch['batch'] == 'ALL') {
 
         }
       } 
+    }
+    if (isset($_POST['ijin'])) {
+      $idbr = $max['id'] + 1;
+    $nip_2 = $_POST['ijin'];
+      $sql_traines2 = mysqli_query($conn, "SELECT angkatan, semester, Asisten FROM `traines` WHERE nip='$nip_2'");
+      $data_angkatan2 = mysqli_fetch_array($sql_traines2);
+      $angkatan2 = $data_angkatan2['angkatan'];
+      $smt22 = $data_angkatan2['semester'];
+      $asisten_2 = $data_angkatan2['Asisten'];
+      $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi` WHERE presensi_date=date(now()) AND schedule_id='$id_'"));
+      $hasil_ = 'I';
+      $inputpresensi =  mysqli_query($conn, "INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`, `id_presensi`, `schedule_id`,`semester`,`asisten`) VALUES ('$nip_2','$batch','$week','$id_kegiatan1','$waktu_sekarang','$hasil_','$info','$idbr','$id_','$smt22','$asisten_2')");
     }
   }
 
@@ -195,7 +241,7 @@ $list = mysqli_fetch_array($jadwal);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
 
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="source/bootstrap.min.css">
     <script src="source/jquery.min.js"></script>
     <!--<script src="https://code.jquery.com/jquery-3.3.1.js"></script>-->
@@ -249,6 +295,11 @@ input {
   color: white; 
 }
 
+.garis_verikal{
+border-left: 2px black solid;
+height: 10px;
+width: 0px;
+}
 
 </style>
 
@@ -257,9 +308,22 @@ input {
 
   <body>
     <script src="client.js"></script>
-    <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
-    <!-- <a class="btn btn-outline-primary m-1" href="view.php?akt=<?= $AKT;?>">View Presensi</a> -->
-    <a class="btn btn-info m-1" href="presensipm.php?akt=<?= $AKT;?>">Presensi PM, LIVING & SEKUTU <span class="badge bg-danger text-light">New</span></a>
+    <form action="" method="post"  id="nip2">
+    <div class="input-group">
+      <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
+      <a class="btn btn-info m-1" href="presensipm.php?akt=<?= $AKT;?>">Presensi PM, LIVING & SEKUTU  </a>
+      <select name="ijin" id="" class="form-control col-3 m-1"  autocomplete="off"  required="" onChange="document.getElementById('nip2').submit();">
+        <option value="">Permission Not To Enter Class</option>
+        <?php
+               
+              $tampilkan_traines = mysqli_query($conn,"SELECT * FROM `traines`");
+              while ($tampilkan_traines_ = mysqli_fetch_array($tampilkan_traines)) {  ?>
+              <option value="<?= $tampilkan_traines_['nip'];?>"><?= $tampilkan_traines_['name'];?></option>
+            <?php  }
+              ?>
+      </select>
+    </div>
+  </form>
     <table class="table" id="bodyTable">
         <tr>
             <td style="width:35%; height:30%;">
@@ -305,10 +369,10 @@ input {
                 <a href="Hymns.php?akt=<?= $AKT;?>" class="btn text-light btn-sm ml-3" style="background-color: #3A98B9;">Hymns</a>
                 <a href="Exhibition.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-3" style="background-color: #FFED00;">Exhibition</a>
                 <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-3 " style="background-color: #BFDB38;">Prophesying</a>
+                <!-- <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-3 m-2 " style="background-color: #19A7CE;">Permission Not To Enter Class</a> -->
                 <form action="" method="post">
                           <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
                           <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
-
                           </form>
                            
                           
@@ -416,6 +480,9 @@ input {
                            if($data['mark'] == "O") { ?>
                             <span class="badge badge-pill badge-warning">O</span>
                          <?php  }
+                        if($data['mark'] == "I") { ?>
+                        <span class="badge badge-pill badge-info">I</span>
+                        <?php  }
                              
                              ?></td>
                            
@@ -432,7 +499,6 @@ input {
     </table>
 
    
-
 
 
 

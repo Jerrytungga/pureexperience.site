@@ -1,0 +1,132 @@
+/* CSS untuk Linktree */
+
+/* Menambahkan font Poppins */
+@font-face {
+  font-family: 'Poppins';
+  src: url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+}
+
+/* Style untuk body */
+body {
+	background:  #000089;
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+/* Animasi untuk background */
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* Style untuk header */
+.container h1 {
+	font-family: 'Poppins', sans-serif;
+	font-size: 2.5em;
+	margin-top: 30px;
+	text-align: center;
+}
+
+/* Style untuk links */
+.container .links {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 30px 0;
+}
+
+/* Style untuk card */
+.card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #d2d2d2;
+   opacity: initial;
+	border-radius: 5px;
+	margin: 15px;
+	padding: 15px;
+	width: 300px;
+	height: 250px;
+	transition: all 0.3s ease-in-out;
+}
+
+/* Style untuk card icon */
+.card .card-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #000000;
+	border-radius: 50%;
+	height: 100px;
+	width: 100px;
+	margin-bottom: 15px;
+}
+
+/* Style untuk card body */
+.card .card-body {
+	text-align: center;
+}
+
+/* Style untuk link pada card */
+.card .card-body a {
+
+	text-decoration: none;
+}
+
+/* Style untuk teks pada card */
+.card .card-body h2 {
+	font-size: 1.5em;
+	margin-bottom: 15px;
+   
+  
+}
+
+/* Style untuk konten */
+.container p {
+	font-family: 'Poppins', sans-serif;
+	font-size: 1.2em;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+/* Style untuk animasi saat hover */
+.card:hover {
+	transform: scale(1.05);
+    background-color: #F96D15;
+    color: #ffffff;
+    opacity: initial;
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+/* Media query untuk tampilan responsif */
+@media (max-width: 768px) {
+	.container .links {
+		flex-direction: column;
+	}
+	
+	.card {
+		height: auto;
+	}
+}
+
+h1{
+    color: #F7F8FA;
+}
+
+a{
+    text-decoration: none;
+    color: #000000;
+}
+a:hover{
+    text-decoration: none;
+    color: #fafafa;
+}
+

@@ -1,49 +1,49 @@
-<?php
-include 'koneksi.php';
-if (isset($_POST['buka'])) {
-  $AKT = $_POST['batch'];
-  header('Location: presensi.php?akt=' . $AKT . '');
-}
-?>
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-  <title>Pure Experience</title>
-  <link rel="icon" type="image/x-icon" href="img/logo.png">
+	<title>Linktree</title>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
 <body>
-  <center>
-
-    <img src="img/logo.png" alt="" height="290" width="300">
-    <form action="" method="POST">
-      <h2 class="m-lg-5">PURE EXPERIENCE</h2>
-      <select name="batch" class="form-control m-lg-5 col-4" required>
-        <option value="">Select Batch</option>
-        <?php
-        $abl_angkatan = mysqli_query($conn, "SELECT angkatan FROM `tb_angkatan` ");
-        while ($dataangkatan = mysqli_fetch_array($abl_angkatan)) { ?>
-          <option value="<?= $dataangkatan['angkatan']; ?>"><?= $dataangkatan['angkatan']; ?></option>
-        <?php  }
-
-        ?>
-      </select>
-
-      <button class="btn btn-success shadow mt-3" type="submit" name="buka">Open Presensi</button>
-    </form>
-    <a href="login.php"><button class="btn btn-danger mt-2 mb-4">Cpanel Presensi</button></a>
-
-  </center>
-
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+	<div class="container">
+		<h1>FTTI Linktree</h1>
+		<div class="links">
+			<div class="card">
+				<!-- <div class="card-icon">
+					<img src="https://img.icons8.com/cotton/64/000000/home--v2.png"/>
+				</div> -->
+                <a href="pureexperience.php" target="blank">
+				<div class="card-body">
+					<h2>PRESENSI KELAS</h2>
+					<!-- <a href="https://www.example.com/"> PURE EXPERIENCE</a> -->
+				</div>
+                </a>
+			</div>
+            <a href="KB.php" target="blank">
+			<div class="card">
+				<div class="card-body">
+					<h2>DAFTAR KEJAR BERITA</h2>
+				</div>
+			</div>
+            </a>
+            <a href="con" target="blank">
+			<div class="card">
+				<div class="card-body">
+					<h2>DAFTAR REMEDIAL AYAT HAFALAN</h2>
+				</div>
+			</div>
+            </a>
+            <a href="con" target="blank">
+			<div class="card">
+				<div class="card-body">
+					<h2>DAFTAR TUGAS KASIH KARUNIA</h2>
+				</div>
+			</div>
+            </a>
+			
+		</div>
+		
+	</div>
 </body>
-
 </html>
