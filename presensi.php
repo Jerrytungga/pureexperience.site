@@ -470,7 +470,8 @@ width: 0px;
                             <td></td>
                            
                             <td></td>
-                            <td><?php
+                            <td>
+                              <?php
                            if($data['mark'] == "V") { ?>
                             <span class="badge badge-pill badge-success">V</span>
                          <?php  }
@@ -484,7 +485,8 @@ width: 0px;
                         <span class="badge badge-pill badge-info">I</span>
                         <?php  }
                              
-                             ?></td>
+                             ?>
+                             </td>
                            
                             
                         </tr>

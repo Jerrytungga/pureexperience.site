@@ -153,7 +153,9 @@ include 'head.php';
             <tr>
 
                 <td><?= $i; ?></td>
-                <td><?= name($arraytampil3['nip']); ?></td>
+                <td>
+                  <a href="hasilpresensi.php?nip=<?= $arraytampil3['nip']; ?>&week=<?= $_POST['week'];?>"><?= name($arraytampil3['nip']); ?></a>
+                </td>
              <td><?= $ambil_batch['angkatan']; ?></td>
              <td><?= $arraytampil_mark_V['total']; ?></td>
              <td><?= $arraytampil_mark_O['total']*-1; ?></td>
