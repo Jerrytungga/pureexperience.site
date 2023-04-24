@@ -44,6 +44,7 @@ include 'head.php';
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Laporan Presensi</h6> <br>
+        <a href="index.php" class="btn btn-danger">Kembali</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
