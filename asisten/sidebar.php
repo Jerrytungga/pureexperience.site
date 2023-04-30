@@ -7,7 +7,7 @@
                     <!-- <i class="fas fa-laugh-wink"></i> -->
                     <div>Cpanel</div>
                 </div>
-                <div class="sidebar-brand-text mx-3">Presensi</div>
+                
     </a>
 
     <!-- Divider -->
@@ -25,16 +25,13 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="traines.php">
-            <i class="fas fa-fw fa-users"></i>
-            <span>My Trainee</span></a>
+        <a class="nav-link" href="KB.php">
+            <span>Daftar KB</span></a>
     </li>
-
-    <!-- <li class="nav-item">
-        <a class="nav-link" href="presensi.php">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Presensi</span></a>
-    </li> -->
+    <li class="nav-item">
+        <a class="nav-link" href="Ayat_Hafalan.php">
+            <span>Remedial Ayat Hafalan</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

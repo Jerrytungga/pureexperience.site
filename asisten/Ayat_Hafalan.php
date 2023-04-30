@@ -1,7 +1,16 @@
 <?php
 include '../koneksi.php';
 include 'session.php';
-$ambildata_traines = mysqli_query($conn,"SELECT * FROM `traines` where `Asisten`='$id' order by date DESC");
+
+if (isset($_POST['kb'])) {
+    $done =  $_POST['done'];
+    $id =  $_POST['kb'];
+    $id_activity =  $_POST['id_activity'];
+    $schedule_id =  $_POST['schedule_id'];
+    $menu = mysqli_query($conn, "UPDATE `presensi` SET `status` = '$done' WHERE `presensi`.`nip` ='$id' AND `presensi`.`id_activity` ='$id_activity' AND `presensi`.`schedule_id` ='$schedule_id'");
+    
+}
+$presensi = mysqli_query($conn, "SELECT * FROM `presensi` where mark='I' ");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +51,8 @@ include 'head.php';
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4" >
-    <div class="card-header py-3" style="background-color: #68B984;">
-        <h6 class="m-0 font-weight-bold text-light" >My Trainee</h6> <br>
+    <div class="card-header py-3" style="background-color: #F79540;">
+        <h6 class="m-0 font-weight-bold text-light">Daftar Remedial Ayat Hafalan</h6> <br>
       
     </div>
     <div class="card-body" >
@@ -52,47 +61,63 @@ include 'head.php';
                 <thead style="color: #567189;">
                     <tr>
                     <th>No</th>
-                    <th>Name</th>
-                    <th>Batch</th>
-                    <th>Action</th>
+        <th>Nama</th>
+        <th>Angkatan</th>
+      
+        <th>Aksi</th>
                
                     </tr>
                 </thead>
                
                 <tbody style="color: #567189;">
-                <?php
-                  $p = 1;
-                  function batch($batch)
-                  {
-                      global $conn;
-                      $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_angkatan WHERE id='$batch'"));
-                      return $sqly['angkatan'];
-                  }
+           
+    <?php
                   function activity($activity)
                   {
                       global $conn;
                       $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$activity'"));
                       return $sqly['items'];
                   }
-                foreach ($ambildata_traines as $row) :
-                    ?>
+                  function news($news)
+                  {
+                      global $conn;
+                      $sqly2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_daftar_berita WHERE id_berita='$news'"));
+                      return $sqly2['daftar_berita'];
+                  }
+                  function trainer($trainer)
+                  {
+                      global $conn;
+                      $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM trainer WHERE id_trainer='$trainer'"));
+                      return $sqly3['nama_trainer'];
+                  }
+                  function traines($traines)
+                  {
+                      global $conn;
+                      $sqly4 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM traines WHERE nip='$traines'"));
+                      return $sqly4['name'];
+                  }
+                $i = 1;
+                foreach ($presensi as $row) :
+                ?>
+      <tr>
+      <td><?= $i; ?></td>
+        <td><?= traines($row['nip']); ?></td>
+      
+        <td></td>
+        <td></td>
+     
+         
+        
+      
 
-                        <tr>
-                            <td><?= $p; ?></td>
-                            <td><?= $row['name'];  ?></td>
-                            <td><?= $row['angkatan'];  ?></td>
-                            <td>
-                                <a href="tanah_permai.php" class="btn" style="background-color: #CEEDC7; color:#1A0000;">Tanah Permai</a>
-                                <a href="" class="btn" style="background-color: #16FF00; color:#1A0000;">Catatan Doa</a>
-                            </td>
 
-                          
-                         
-                        </tr>
+      
+      </tr>
+      <?php $i++; ?>
+                     <?php endforeach; ?>
                     
                    
-                    <?php $p++; ?>
-                     <?php endforeach; ?>
+                   
                 </tbody>
             </table>
         </div>
