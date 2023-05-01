@@ -40,13 +40,11 @@ include 'head.php';
         href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
-    
-  </div>
+<h1 style="color: #064663;">Selamat Datang, <?= $data['name']; ?></h1>
+
 </div>
     </div>
     <div class="card-body">
-       
     </div>
 </div>
 

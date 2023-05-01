@@ -19,7 +19,7 @@ if (isset($_POST['login'])) {
       $row1 = mysqli_fetch_assoc($result_klien);
       $_SESSION['id'] = $row1['nip'];
       if ($result_klien) {
-        header("Location: asisten/traines.php");
+        header("Location: asisten/index.php");
       }
     }
     $sqlitraines = "SELECT * FROM traines WHERE username ='$mail' and sandi='$Sandi'";

@@ -5,17 +5,17 @@ include 'session.php';
 if (isset($_POST['simpan'])) {
     $pic =  $_POST['pic'];
     $r =  $_POST['reguler'];
-    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `r_ayathafalan`"));
+    $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `doa_kasih_karunia`"));
     $idr = $max['id'] + 1;
-    $menu = mysqli_query($conn, "INSERT INTO `r_ayathafalan`(`nip`, `reguler`,`id`) VALUES ('$pic','$r','$idr')");
+    $menu = mysqli_query($conn, "INSERT INTO `doa_kasih_karunia`(`nip`, `reguler`,`id`) VALUES ('$pic','$r','$idr')");
     
 }
 if (isset($_POST['selesai'])) {
     $done =  $_POST['selesai'];
-    $menu = mysqli_query($conn, "DELETE FROM `r_ayathafalan` WHERE id='$done'");
+    $menu = mysqli_query($conn, "DELETE FROM `doa_kasih_karunia` WHERE id='$done'");
     
 }
-$presensi = mysqli_query($conn, "SELECT * FROM `r_ayathafalan`");
+$presensi = mysqli_query($conn, "SELECT * FROM `doa_kasih_karunia`");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,8 +56,8 @@ include 'head.php';
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4" >
-    <div class="card-header py-3" style="background-color: #13005A;">
-        <h6 class="m-0 font-weight-bold text-light">Daftar Remedial Ayat Hafalan</h6> <br>
+    <div class="card-header py-3" style="background-color: #541212;">
+        <h6 class="m-0 font-weight-bold text-light">Daftar Doa Kasih Karunia</h6> <br>
         <form action="" method="post">
       <select name="pic" id="" required>
         <option value="" >Pilih Traines</option>
@@ -97,8 +97,8 @@ include 'head.php';
     </div>
     <div class="card-body" >
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="color: #13005A;">
-                <thead style="color: #13005A;">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead style="color: #541212;">
                     <tr>
                     <th>No</th>
         <th>Nama</th>
@@ -109,7 +109,7 @@ include 'head.php';
                     </tr>
                 </thead>
                
-                <tbody style="color: #13005A;">
+                <tbody style="color: #541212;">
            
     <?php
                 

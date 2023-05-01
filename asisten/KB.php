@@ -51,14 +51,14 @@ include 'head.php';
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4" >
-    <div class="card-header py-3" style="background-color: #68B984;">
+    <div class="card-header py-3" style="background-color: #3C2A21;">
         <h6 class="m-0 font-weight-bold text-light" >Daftar Kejar Berita</h6> <br>
       
     </div>
-    <div class="card-body" >
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead style="color: #567189;">
+    <div class="card-body"  style="color: #3C2A21;" >
+        <div class="table-responsive" style="color: #3C2A21;" >
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"  style="color: #3C2A21;">
+                <thead>
                     <tr>
                     <th>No</th>
         <th>Nama</th>
@@ -75,7 +75,7 @@ include 'head.php';
                     </tr>
                 </thead>
                
-                <tbody style="color: #567189;">
+                <tbody>
            
     <?php
                   function activity($activity)

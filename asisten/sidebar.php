@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"  style="background-color: #3D5656;">
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"  style="background-color: #064663;">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -31,6 +31,10 @@
     <li class="nav-item">
         <a class="nav-link" href="Ayat_Hafalan.php">
             <span>Remedial Ayat Hafalan</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="doa_kasihkarunia.php">
+            <span>Doa Kasih Karunia</span></a>
     </li>
 
     <!-- Divider -->
