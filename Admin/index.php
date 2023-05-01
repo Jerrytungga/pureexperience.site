@@ -85,6 +85,7 @@ include 'head.php';
         <div class="table-responsive">
         <table id="example" class="display nowrap" style="width:100%">
     <thead>
+      
             <tr>
                 <th>No</th>
                 <th>Name</th>
