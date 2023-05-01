@@ -15,6 +15,7 @@ $presensi = mysqli_query($conn, "SELECT * FROM `presensi` where mark='I' ");
 <!DOCTYPE html>
 <html lang="en">
 
+
 <?php
 include 'head.php';
 ?>
