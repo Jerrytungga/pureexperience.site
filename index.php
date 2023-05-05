@@ -27,17 +27,17 @@
 				</div>
 			</div>
             </a>
-            <a href="con" target="blank">
+            <a href="ayat_afalan.php" target="blank">
 			<div class="card">
 				<div class="card-body">
 					<h2>DAFTAR REMEDIAL AYAT HAFALAN</h2>
 				</div>
 			</div>
             </a>
-            <a href="con" target="blank">
+            <a href="doa_kasih_karunia.php" target="blank">
 			<div class="card">
 				<div class="card-body">
-					<h2>DAFTAR TUGAS KASIH KARUNIA</h2>
+					<h2>DAFTAR DOA KASIH KARUNIA</h2>
 				</div>
 			</div>
             </a>

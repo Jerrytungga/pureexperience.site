@@ -1,6 +1,6 @@
 <?php
 include 'koneksi.php';
-$presensi = mysqli_query($conn, "SELECT * FROM `presensi` where mark='I' and status='0'");
+$presensi = mysqli_query($conn, "SELECT * FROM `doa_kasih_karunia`");
 $list = mysqli_fetch_array($presensi);
 ?>
 
@@ -14,13 +14,13 @@ $list = mysqli_fetch_array($presensi);
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <title>Daftar Kejar Berita</title>
+    <title>Doa Kasih Karunia</title>
   </head>
   <body>
     
   <div class="card text-center m-3 shadow">
-  <div class="card-header bg-primary text-light font-italic">
-    Daftar Kejar Berita
+  <div class="card-header bg-success shadow font-weight-bold text-light">
+  DOA KASIH KARUNIA
   </div>
   <div class="card-body">
   <div class="container mt-4">
@@ -29,36 +29,13 @@ $list = mysqli_fetch_array($presensi);
       <tr>
         <th>No</th>
         <th>Nama</th>
-        <th>Angkatan</th>
-        <th>Minggu</th>
-        <th>Tanggal</th>
-        <th>Kelas</th>
-        <th>Judul Berita</th>
-        <th>Trainer</th>
-        <th>Jam Mulai</th>
-        <th>Jam Akhir</th>
+        <th>Reguler</th>
+       
       </tr>
     </thead>
     <tbody>
     <?php
-                  function activity($activity)
-                  {
-                      global $conn;
-                      $sqly = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM activity WHERE id_activity='$activity'"));
-                      return $sqly['items'];
-                  }
-                  function news($news)
-                  {
-                      global $conn;
-                      $sqly2 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tb_daftar_berita WHERE id_berita='$news'"));
-                      return $sqly2['daftar_berita'];
-                  }
-                  function trainer($trainer)
-                  {
-                      global $conn;
-                      $sqly3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM trainer WHERE id_trainer='$trainer'"));
-                      return $sqly3['nama_trainer'];
-                  }
+               
                   function traines($traines)
                   {
                       global $conn;
@@ -71,20 +48,7 @@ $list = mysqli_fetch_array($presensi);
       <tr>
       <td><?= $i; ?></td>
         <td><?= traines($row['nip']); ?></td>
-        <?php
-            $ambil_angkatan = mysqli_query($conn, "SELECT * FROM `traines` where nip='".$row['nip']."' ");
-            $angkatan = mysqli_fetch_array($ambil_angkatan);
-            $ambil_berita = mysqli_query($conn, "SELECT * FROM `schedule` where id='".$row['schedule_id']."' ");
-            $berita = mysqli_fetch_array($ambil_berita);
-            ?>
-        <td><?= $angkatan['angkatan']; ?></td>
-        <td><?= $row['week']; ?></td>
-        <td><?= $row['presensi_date']; ?></td>
-        <td><?= activity($row['id_activity']); ?></td>
-        <td><?= news($berita['id_berita']); ?></td>
-        <td><?= trainer($berita['id_trainer']); ?></td>
-        <td><?= $berita['start_time']; ?></td>
-        <td><?= $berita['end_time']; ?></td>
+        <td><?= $row['reguler']; ?></td>
 
       
       </tr>
