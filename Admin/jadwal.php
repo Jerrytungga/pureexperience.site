@@ -499,8 +499,7 @@ include 'head.php';
                                                                             </div>
                                                                         </form>
                                                                     </div>
-    </div>
-  </div>
+
                                                     </td>
 
                        
@@ -511,10 +510,13 @@ include 'head.php';
                      <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
-    </div>
-</div>
+     
 
+
+</div>
+</div>
+</div>
+</div>
 </div>
 <!-- /.container-fluid -->
 

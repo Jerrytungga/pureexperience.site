@@ -71,9 +71,14 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="semester.php">
+                <a class="nav-link" href="histori.php">
                    
-                    <span>Semester</span></a>
+                    <span>Histori</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="hapus_data.php">
+                   
+                    <span>Hapus Semua Data</span></a>
             </li>
 
             <!-- Divider -->
