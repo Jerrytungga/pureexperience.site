@@ -7,8 +7,8 @@ if (isset($_POST['simpandata'])){
     $angkatan = $_POST['angkatan'];
     $gender = $_POST['gender'];
     $asisten = $_POST['asisten'];
-    $semester = $_POST['semester'];
-    $save = mysqli_query($conn,"INSERT INTO `traines`(`nip`, `name`,`angkatan`,`gender`,`Asisten`,`semester`) VALUES ('$id_traines','$nm_traines','$angkatan','$gender','$asisten','$semester')");
+    // $semester = $_POST['semester'];
+    $save = mysqli_query($conn,"INSERT INTO `traines`(`nip`, `name`,`angkatan`,`gender`,`Asisten`) VALUES ('$id_traines','$nm_traines','$angkatan','$gender','$asisten')");
     if($save){
         echo "<script type='text/javascript'>
         alert('Data Berhasil Ditambahkan!');
@@ -22,8 +22,8 @@ if (isset($_POST['perubahan'])){
     $angkatan = $_POST['angkatan'];
     $gender = $_POST['gender'];
     $asisten = $_POST['asisten'];
-    $semester = $_POST['semester'];
-    $perubahan = mysqli_query($conn,"UPDATE `traines` SET `nip`='$nip_t',`name`='$nm_trainee',`angkatan`='$angkatan',`gender`='$gender',`Asisten`='$asisten',`semester`='$semester' WHERE `idt`='$id_t'");
+    // $semester = $_POST['semester'];
+    $perubahan = mysqli_query($conn,"UPDATE `traines` SET `nip`='$nip_t',`name`='$nm_trainee',`angkatan`='$angkatan',`gender`='$gender',`Asisten`='$asisten' WHERE `idt`='$id_t'");
     if($perubahan){
         echo "<script type='text/javascript'>
         alert('Data Berhasil Di Edit!');
@@ -136,7 +136,7 @@ include 'head.php';
                         ?>
                     </select>
                 </div>
-                <div class="mt-1">
+                <!-- <div class="mt-1">
                     <label for="id">Semester :</label>
                     <select class="form-control" name="semester" id="" required>
                         <option value="">Pilih Semester</option>
@@ -147,7 +147,7 @@ include 'head.php';
                         <?php  }
                         ?>
                     </select>
-                </div>
+                </div> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
@@ -169,7 +169,7 @@ include 'head.php';
                         <th>Gender</th>
                         <th>Tanggal Regis</th>
                         <th>Asisten</th>
-                        <th>Semester</th>
+                        <!-- <th>Semester</th> -->
                         <th>Aksi</th>
                
                     </tr>
@@ -205,7 +205,7 @@ include 'head.php';
                         <td><?= $row['gender']; ?></td>
                         <td><?= $row['date']; ?></td>
                         <td><?= asisten($row['Asisten']); ?></td>
-                        <td>
+                        <!-- <td>
                             <?php
                                 if($row['semester'] > 0){ ?>
                                     <?= semester($row['semester']); ?>
@@ -214,7 +214,7 @@ include 'head.php';
                              }
                             ?>
                         
-                        </td>
+                        </td> -->
                         <td>
                        
                         <a id="editdata" type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edittraines" data-idt="<?= $row['idt']; ?>" data-nip="<?= $row['nip']; ?>" data-batch="<?= $row['angkatan']; ?>" data-nama="<?= $row['name']; ?>" data-gender="<?= $row['gender']; ?>" data-asisten="<?= $row['Asisten']; ?>" data-semester="<?= $row['semester']; ?>">
@@ -273,7 +273,7 @@ include 'head.php';
                                         ?>
                                     </select>
                                 </div>
-                                <div class="mt-1">
+                                <!-- <div class="mt-1">
                     <label for="id">Semester :</label>
                     <select class="form-control" name="semester" id="semester">
                         <option value="">Pilih Semester</option>
@@ -284,7 +284,7 @@ include 'head.php';
                         <?php  }
                         ?>
                     </select>
-                </div>
+                </div> -->
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
@@ -345,7 +345,7 @@ include 'head.php';
       let nama = $(this).data('nama');
       let gender = $(this).data('gender');
       let asisten = $(this).data('asisten');
-      let semester = $(this).data('semester');
+    //   let semester = $(this).data('semester');
      
       $(" #modal-editTraine #nip").val(nip);
       $(" #modal-editTraine #idt").val(idt);
@@ -353,7 +353,7 @@ include 'head.php';
       $(" #modal-editTraine #nama").val(nama);
       $(" #modal-editTraine #gender").val(gender);
       $(" #modal-editTraine #asisten").val(asisten);
-      $(" #modal-editTraine #semester").val(semester);
+    //   $(" #modal-editTraine #semester").val(semester);
   
 
     });
