@@ -13,6 +13,7 @@ if (isset($_POST['login'])) {
         header("Location: Admin/index.php");
       }
     }
+    
     $sqliasisten = "SELECT * FROM asisten WHERE username ='$mail' and password='$Sandi' and status = 'Aktif'";
     $result_klien = mysqli_query($conn, $sqliasisten);
     if ($result_klien->num_rows > 0) {

@@ -27,6 +27,7 @@
 				</div>
 			</div>
 			
+			
             </a>
             <a href="ayat_afalan.php" target="blank">
 			<div class="card">
