@@ -1,6 +1,7 @@
 <?php
 include '../koneksi.php';
 include 'session.php';
+error_reporting(0);
 if(isset($_POST['simpan'])){
     $tgl = $_POST['week'];
     
