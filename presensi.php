@@ -7,7 +7,8 @@ if ($AKT == "") {
 $page = $_SERVER['REQUEST_URI'];
 $sec = "30";
 session_start();
-error_reporting(E_ALL ^ E_NOTICE);
+
+error_reporting(0);
 date_default_timezone_set('Asia/Jakarta');
 $hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H:i:s');
