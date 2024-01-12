@@ -62,6 +62,43 @@ if ($alert_alarm['presensi_time'] < $waktu_sekarang && $alert_alarm['start_time'
 <?php }
 
 
+$angkatan_sama_ = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and batch='$AKT' and date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
+$jadwal_angkatan_sama_ = mysqli_fetch_array($angkatan_sama_);
+$id_2 = $jadwal_angkatan_sama_['id'];
+$week_2 = $jadwal_angkatan_sama_['week'];
+$batch_2 = $jadwal_angkatan_sama_['batch'];
+$id_kegiatan_2 = $jadwal_angkatan_sama_['id_activity'];
+$info_2 = $jadwal_angkatan_sama_['info'];
+$waktu_2 = $jadwal_angkatan_sama_['start_time'];
+$jam_akhir_2 = $jadwal_angkatan_sama_['end_time'];
+$waktuabsent_2 = $jadwal_angkatan_sama_['presensi_time'];
+$timer_2 = $jadwal_angkatan_sama_['timer'];
+
+if($jadwal_angkatan_sama_['batch'] == $AKT){
+  if ($waktu_2 < $waktu_sekarang && $timer_2 < $waktu_sekarang) {
+    $hasil2 = 'X';
+    $tampilkan_traines_angkatan = mysqli_query($conn,"SELECT * FROM `traines` where `angkatan`='$batch_2'");
+    while ($ambil_data__traines = mysqli_fetch_array($tampilkan_traines_angkatan)){
+      $nip_traines_ = $ambil_data__traines['nip'];
+      $asisten_traines = $ambil_data__traines['Asisten'];
+      $angkatan_traines____= $ambil_data__traines['angkatan'];
+      $semester_traines____= $ambil_data__traines['semester'];
+      $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi` "));
+      $id_absent = $max['id'] + 1;
+      mysqli_query($conn,"INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`, `id_presensi`, `schedule_id`,`semester`,`asisten`) VALUES ('$nip_traines_','$angkatan_traines____','$week_2','$id_kegiatan_2','$waktu_sekarang','$hasil2','$info_2','$id_absent','$id_2','$semester_traines____','$asisten_traines')");
+     
+    }
+
+  }
+
+
+}
+
+
+
+
+
+
 if ($angkatan == $cek_batch['batch']) {
   $angkatan_sama = mysqli_query($conn, "SELECT * FROM `schedule` where status='Aktif' and batch='$AKT' and date='$hari_ini'  and   `presensi_time` < '$waktu_sekarang' and  `end_time` > '$waktu_sekarang'");
   $jadwal_angkatan_sama = mysqli_fetch_array($angkatan_sama);
@@ -75,6 +112,8 @@ if ($angkatan == $cek_batch['batch']) {
   $waktuabsent1 = $jadwal_angkatan_sama['presensi_time'];
   $timer1 = $jadwal_angkatan_sama['timer'];
 
+ 
+
 
   if ($angkatan == $cek_batch['batch']) {
     // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
@@ -87,6 +126,10 @@ if ($angkatan == $cek_batch['batch']) {
       } 
       if ($waktu1 < $waktu_sekarang && $timer1 < $waktu_sekarang) {
         $hasil1 = 'X';
+       
+
+
+
       }
     }
 
@@ -131,6 +174,8 @@ if ($angkatan == $cek_batch['batch']) {
   }
  }
 }
+
+
   if (isset($_POST['nip'])) {
     if ($cek_presensi['presensi_time'] > $waktu_sekarang) {
        echo notice(4);
@@ -149,6 +194,9 @@ if ($cek_batch['batch'] == 'ALL') {
   $jam_akhir = $array_jadwal_ALL['end_time'];
   $waktuabsent = $array_jadwal_ALL['presensi_time'];
   $timer = $array_jadwal_ALL['timer'];
+
+
+  
   if ($batch) {
     // memasukan data jadwal kegiatan berdasarkan data angkatan dan waktu dan hari
     if ($waktuabsent < $waktu_sekarang && $jam_akhir > $waktu_sekarang) {
@@ -160,10 +208,22 @@ if ($cek_batch['batch'] == 'ALL') {
       } 
       if ($waktu < $waktu_sekarang && $timer < $waktu_sekarang) {
         $hasil = 'X';
+
+        $tampilkan_traines_ = mysqli_query($conn,"SELECT * FROM `traines`");
+        while ($ambil_data = mysqli_fetch_array($tampilkan_traines_)){
+          $__nip = $ambil_data['nip'];
+          $asisten___ = $ambil_data['Asisten'];
+          // $angkatan_traines = $ambil_data['angkatan'];
+          $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_presensi`) As id FROM `presensi` "));
+          $id_absent = $max['id'] + 1;
+          mysqli_query($conn,"INSERT INTO `presensi`(`nip`, `batch`, `week`, `id_activity`, `presensi_time`, `mark`, `info_schedule`, `id_presensi`, `schedule_id`,`semester`,`asisten`) VALUES ('$__nip','$AKT','$week','$id_kegiatan1','$waktu_sekarang','$hasil','$info','$id_absent','$id_','$smt2','$asisten___')");
+        }
       }
 
 
     }
+
+
 
 
 
@@ -302,6 +362,7 @@ height: 10px;
 width: 0px;
 }
 
+
 </style>
 
   </head>
@@ -316,8 +377,11 @@ width: 0px;
       <select name="ijin" id="" class="form-control col-3 m-1"  autocomplete="off"  required="" onChange="document.getElementById('nip2').submit();">
         <option value="">Permission Not To Enter Class</option>
         <?php
-               
-              $tampilkan_traines = mysqli_query($conn,"SELECT * FROM `traines`");
+               if($AKT == 'ALL'){
+                 $tampilkan_traines = mysqli_query($conn,"SELECT * FROM `traines`");
+               } else {
+                 $tampilkan_traines = mysqli_query($conn,"SELECT * FROM `traines` where angkatan='$AKT'");
+               }
               while ($tampilkan_traines_ = mysqli_fetch_array($tampilkan_traines)) {  ?>
               <option value="<?= $tampilkan_traines_['nip'];?>"><?= $tampilkan_traines_['name'];?></option>
             <?php  }
@@ -376,6 +440,9 @@ width: 0px;
                           <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
                           </form>
                            
+                          <?php
+                         
+                          ?>
                           
                         </div>
                     </div>
@@ -383,7 +450,7 @@ width: 0px;
             </td>
 
             <td style="width:40%; font-size: 14pt" rowspan="2">
-                <table class="table table-striped">
+                <table class="table table-striped  rounded-20 ">
                     <thead>
                         <tr>
                             <th>Today's Schedule</th>
@@ -536,7 +603,7 @@ width: 0px;
 
 
 
-<center><p>FTTI Absent system (ver. 1.0) - © 2023 by JerSoft</p></center>
+<center><p>FTTI Absent system (ver. 1.0) - © 2023 by JERRI <sup>51</sup></p></center>
  <ul id="log"></ul>
 
 
