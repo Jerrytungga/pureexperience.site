@@ -2,6 +2,14 @@
 include '../koneksi.php';
 include 'session.php';
 
+
+if (isset($_POST['selesai'])) {
+    $done =  $_POST['selesai'];
+    $id =  $_POST['id'];
+    $menu = mysqli_query($conn, "UPDATE `doa_kasih_karunia` SET `status`='$done' WHERE `id`='$id'");
+    
+}
+
 if (isset($_POST['simpan'])) {
     $pic =  $_POST['pic'];
     $r =  $_POST['reguler'];
@@ -10,11 +18,7 @@ if (isset($_POST['simpan'])) {
     $menu = mysqli_query($conn, "INSERT INTO `doa_kasih_karunia`(`nip`, `reguler`,`id`) VALUES ('$pic','$r','$idr')");
     
 }
-if (isset($_POST['selesai'])) {
-    $done =  $_POST['selesai'];
-    $menu = mysqli_query($conn, "DELETE FROM `doa_kasih_karunia` WHERE id='$done'");
-    
-}
+
 $presensi = mysqli_query($conn, "SELECT * FROM `doa_kasih_karunia`");
 ?>
 <!DOCTYPE html>
@@ -129,9 +133,14 @@ include 'head.php';
         <td><?= traines($row['nip']); ?></td>
         <td><?= $row['reguler']; ?></td>
         <td>
-            <form action="" method="post">
-                <button type="submit" name="selesai" value="<?= $row['id']; ?>">Selesai</button>
-            </form>
+            <form action="" method="POST">
+        <input type="hidden" name="id" value="<?= $row['id']; ?>">
+        <?php
+        if ($row['status'] == "0") { ?>
+            <button type="submit" value="1" name="selesai" class="btn btn-success">DONE</button>
+        <?php    } 
+        ?>
+        </form>
         </td>
      
          

@@ -12,7 +12,8 @@ if (isset($_POST['simpan'])) {
 }
 if (isset($_POST['selesai'])) {
     $done =  $_POST['selesai'];
-    $menu = mysqli_query($conn, "DELETE FROM `r_ayathafalan` WHERE id='$done'");
+    $id =  $_POST['id'];
+    $menu = mysqli_query($conn, "UPDATE `r_ayathafalan` SET `status`='$done' WHERE `id`='$id'");
     
 }
 $presensi = mysqli_query($conn, "SELECT * FROM `r_ayathafalan`");
@@ -129,9 +130,14 @@ include 'head.php';
         <td><?= traines($row['nip']); ?></td>
         <td><?= $row['reguler']; ?></td>
         <td>
-            <form action="" method="post">
-                <button type="submit" name="selesai" value="<?= $row['id']; ?>">Selesai</button>
-            </form>
+        <form action="" method="POST">
+        <input type="hidden" name="id" value="<?= $row['id']; ?>">
+        <?php
+        if ($row['status'] == "0") { ?>
+            <button type="submit" value="1" name="selesai" class="btn btn-success">DONE</button>
+        <?php    } 
+        ?>
+        </form>
         </td>
      
          
