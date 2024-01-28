@@ -362,6 +362,9 @@ height: 10px;
 width: 0px;
 }
 
+body {
+  background-color: #E6FFFD;
+}
 
 </style>
 
@@ -372,7 +375,7 @@ width: 0px;
     <script src="client.js"></script>
     <form action="" method="post"  id="nip2">
     <div class="input-group">
-      <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
+      <a class="btn btn-outline-primary m-1" href="pureexperience.php">Back</a>
       <a class="btn btn-info m-1" href="presensipm.php?akt=<?= $AKT;?>">Presensi PM, LIVING & SEKUTU  </a>
       <select name="ijin" id="" class="form-control col-3 m-1"  autocomplete="off"  required="" onChange="document.getElementById('nip2').submit();">
         <option value="">Permission Not To Enter Class</option>
@@ -418,34 +421,14 @@ width: 0px;
             
             <td style="width:35%; height:30%;">
                
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3" style="background-color: #243763;">
-                            <h2 class="m-0 font-weight-bold text-white" id='dateToday'> 
-                               RFID 
-                               <div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                            </h2>
-                            
-                        </div>
-                        <div class="card-body">
-                          
-                <a href="prayer.php?akt=<?= $AKT;?>" class="btn text-light btn-sm ml-3" style="background-color: #0E8388;">Prayer</a>
-                <a href="Hymns.php?akt=<?= $AKT;?>" class="btn text-light btn-sm ml-3" style="background-color: #3A98B9;">Hymns</a>
-                <a href="Exhibition.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-3" style="background-color: #FFED00;">Exhibition</a>
-                <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-3 " style="background-color: #BFDB38;">Prophesying</a>
-                <!-- <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-3 m-2 " style="background-color: #19A7CE;">Permission Not To Enter Class</a> -->
-                <form action="" method="post">
-                          <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
-                          <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
-                          </form>
-                           
-                          <?php
-                         
-                          ?>
-                          
-                        </div>
-                    </div>
+            <div class="card shadow mb-4 anouncement_marquee">
+                                <div class="card-header py-3" style="background-color: #243763;">
+                                    <marquee><h3 class="m-0 font-weight-bold text-white">A  N  N  O  U  N  C  E  M  E  N  T</h3></marquee>
+                                </div>
+                                <div class="card-body"><font size="4pt"><p id="anouncement">
+                                Apabila saudara-saudari tidak melakukan presensi di bawa waktu terakhir <b class="text-danger"><?= $list['timer']; ?></b> maka lebih dari itu, sistem akan secara automatis menganggap.  <span class="badge badge-pill badge-danger">X</span> <br> <br> Ketua kelas wajib melakukan presensi ijin saudara/i, apabila saudara/i sudah konfirmasi ke asisten pribadi, di bawa waktu terakhir <b class="text-danger"><?= $list['timer']; ?></b> jika lewat maka sistem akan secara automatis menganggap.  <span class="badge badge-pill badge-danger">X</span>
+                                </p></font></div>
+                            </div>
              
             </td>
 
@@ -470,11 +453,14 @@ width: 0px;
                         foreach ($jadwal as $row) :
                     ?>
                         <tr>
-                            <td><?= activity($row['id_activity']); ?></td>
+                            <td><?= activity($row['id_activity']); ?> <br>
+                            <div class="alert alert-danger" role="alert">
+                              <b><?= $row['info']; ?></b>
+                            
+</div>
+                          </td>
                             <td><?= $row['presensi_time']; ?></td>
                             <td><?= $row['start_time']; ?></td>
-                           
-                            
                         </tr>
                         <?php $i++; ?>
                      <?php endforeach; ?>
@@ -484,16 +470,36 @@ width: 0px;
         </tr>
 
         <tr>
-            <td style="height:10%;">
+        <td style="width:35%; height:30%;">
                 <!-- Basic Card Example -->
-                            <div class="card shadow mb-4 anouncement_marquee">
-                                <div class="card-header py-3" style="background-color: #243763;">
-                                    <marquee><h3 class="m-0 font-weight-bold text-white">A  N  N  O  U  N  C  E  M  E  N  T</h3></marquee>
-                                </div>
-                                <div class="card-body"><font size="4pt"><p id="anouncement">
-                                    Karena kasih karunia Allah yang menyelamatkan semua manusia sudah nyata. Ia (kasih karunia Allah ini) mendidik (melatih) kita supaya kita meninggalkan kefasikan dan keinginan-keinginan duniawi dan supaya kita hidup bijaksana, adil dan beribadah di dalam dunia sekarang ini dengan menantikan penggenapan pengharapan kita yang penuh bahagia dan penyataan kemuliaan Allah yang Mahabesar dan Juruselamat kita Yesus Kristus, yang telah menyerahkan diri-Nya bagi kita untuk membebaskan kita dari segala kejahatan dan untuk menguduskan bagi diri-Nya suatu umat, kepunyaan-Nya sendiri, yang rajin berbuat baik. <b>(Titus 2:11-14)</b>
-                                </p></font></div>
-                            </div>
+                <div class="card shadow mb-4">
+                        <div class="card-header py-3" style="background-color: #243763;">
+                            <h2 class="m-0 font-weight-bold text-white" id='dateToday'> 
+                               RFID 
+                               <div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                            </h2>
+                            
+                        </div>
+                        <div class="card-body">
+                          
+                <a href="prayer.php?akt=<?= $AKT;?>" class="btn text-light btn-sm ml-3" style="background-color: #0E8388;">Prayer</a>
+                <a href="Hymns.php?akt=<?= $AKT;?>" class="btn text-light btn-sm ml-1" style="background-color: #3A98B9;">Hymns</a>
+                <a href="Exhibition.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-1" style="background-color: #FFED00;">Exhibition</a>
+                <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-1 " style="background-color: #BFDB38;">Prophesying</a>
+                <!-- <a href="Prophesying.php?akt=<?= $AKT;?>" class="btn text-dark btn-sm ml-3 m-2 " style="background-color: #19A7CE;">Permission Not To Enter Class</a> -->
+                <form action="" method="post">
+                          <input type="number"   name="nip"   autofocus  autocomplete="off"  required="" >
+                          <button1 type="submit" name="simpan" style="width: 50px; height: 37px; background: white"><i class='bx bx-scan color:white; '></i></button1>
+                          </form>
+                           
+                          <?php
+                         
+                          ?>
+                          
+                        </div>
+                    </div>     
             </td>
             <td style="height:10%;">
                 <!-- Basic Card Example -->

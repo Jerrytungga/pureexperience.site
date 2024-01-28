@@ -89,6 +89,11 @@ $list = mysqli_fetch_array($jadwal);
     font-size: 14pt;
     color:#03001C;
       }
+
+      body {
+  background-color: #E6FFFD;
+}
+
       
     </style>
 
@@ -107,7 +112,7 @@ $(document).ready(function(){
 
   <body>
     <script src="client.js"></script>
-    <a class="btn btn-outline-primary m-1" href="index.php">Back</a>
+    <a class="btn btn-outline-primary m-1" href="presensi.php?akt=<?= $AKT;?>">Back</a>
     <!-- <a class="btn btn-outline-primary m-1" href="view.php?akt=<?= $AKT;?>">View Presensi</a> -->
     <a class="btn btn-info m-1" href="presensipm.php?akt=<?= $AKT;?>">Presensi PM & LIVING <span class="badge bg-danger text-light">New</span></a>
     <table class="table" id="bodyTable">
@@ -214,7 +219,7 @@ $(document).ready(function(){
                                     <marquee><h3 class="m-0 font-weight-bold text-white">A  N  N  O  U  N  C  E  M  E  N  T</h3></marquee>
                                 </div>
                                 <div class="card-body"><font size="4pt"><p id="anouncement">
-                                    Karena kasih karunia Allah yang menyelamatkan semua manusia sudah nyata. Ia (kasih karunia Allah ini) mendidik (melatih) kita supaya kita meninggalkan kefasikan dan keinginan-keinginan duniawi dan supaya kita hidup bijaksana, adil dan beribadah di dalam dunia sekarang ini dengan menantikan penggenapan pengharapan kita yang penuh bahagia dan penyataan kemuliaan Allah yang Mahabesar dan Juruselamat kita Yesus Kristus, yang telah menyerahkan diri-Nya bagi kita untuk membebaskan kita dari segala kejahatan dan untuk menguduskan bagi diri-Nya suatu umat, kepunyaan-Nya sendiri, yang rajin berbuat baik. <b>(Titus 2:11-14)</b>
+                                  Bagi saudara-saudari yang terlibat pelayanan makan, harus presensi di bawa waktu terakhir <b class="text-danger"><?= $list['timer']; ?></b>  lebih dari itu, sistem akan secara automatis menganggap  <span class="badge badge-pill badge-danger">X</span>
                                 </p></font></div>
                             </div>
             </td>
@@ -321,8 +326,7 @@ $(document).ready(function(){
 
 
 
-
-<center><p>FTTI Absent system (ver. 1.0) - © 2023 by JerSoft</p></center>
+  <center><p>FTTI Absent system (ver. 1.0) - © 2023 by JERRI <sup>51</sup></p></center>
  <ul id="log"></ul>
 
 

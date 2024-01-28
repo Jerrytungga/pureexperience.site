@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
 $AKT = $_GET['akt'];
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(0);
 date_default_timezone_set('Asia/Jakarta');
 $hari_ini = date('Y-m-d');
 $waktu_sekarang = date('H:i:s');

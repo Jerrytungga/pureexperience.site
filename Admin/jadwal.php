@@ -251,15 +251,19 @@ include 'head.php';
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">Watku Akhir Presensi :</label>
-                                                                    <input name="waktu_akhir_presensi" required type="time" class="form-control" placeholder="waktu_akhir_presensi">
+                                                                    <input name="waktu_akhir_presensi"  type="time" class="form-control" placeholder="waktu_akhir_presensi">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="">Pesan Untuk Trainee :</label>
-                                                                    <textarea name="pesan" id="" required cols="4" rows="2" class="form-control"></textarea>
+                                                                    <textarea name="pesan" id=""  cols="4" rows="2" class="form-control"></textarea>
                                                                 </div>
 
+                                                               
+                                                                
+                                                                
                                                             </div>
                                                         </div>
+                                                        
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="payment-adress">
