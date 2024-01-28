@@ -74,6 +74,7 @@ $list = mysqli_fetch_array($jadwal);
     <script src="source/dataTables.bootstrap4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="source/dataTables.bootstrap4.min.css">
     <link rel="icon" href="data:;base64,=">
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
 
 
 

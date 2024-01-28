@@ -315,6 +315,7 @@ $list = mysqli_fetch_array($jadwal);
     <!--<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>-->
     <script src="source/dataTables.bootstrap4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="source/dataTables.bootstrap4.min.css">
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
     <link rel="icon" href="data:;base64,=">
 
 

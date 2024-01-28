@@ -5,6 +5,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Cpanel Presensi</title>
+    <link rel="icon" type="image/x-icon" href="../img/logo.png">
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link

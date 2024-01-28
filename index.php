@@ -4,6 +4,7 @@
 	<title>Linktree</title>
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" type="image/x-icon" href="img/logo.png">
 </head>
 <body>
 	<div class="container">

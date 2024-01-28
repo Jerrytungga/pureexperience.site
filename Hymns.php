@@ -55,7 +55,7 @@ if ($masukan_data){
     <link rel="stylesheet" type="text/css" href="source/dataTables.bootstrap4.min.css">
     <link rel="icon" href="data:;base64,=">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
 
     <title>Hymns</title>
     <script>

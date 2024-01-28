@@ -46,6 +46,7 @@ if ($masukan_data){
     <script src="source/jquery.min.js"></script>
     <script src="source/popper.min.js"></script>
     <script src="source/bootstrap.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
 
     <!--<script src="datatables/jquery.dataTables.js"></script>-->
     <script src="source/jquery.dataTables.min.js"></script>
