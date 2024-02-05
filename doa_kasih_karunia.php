@@ -29,6 +29,8 @@ $list = mysqli_fetch_array($presensi);
       <tr>
         <th>No</th>
         <th>Nama</th>
+        <th>Jurnal</th>
+        <th>Terburuk</th>
         <th>Reguler</th>
        
       </tr>
@@ -48,6 +50,8 @@ $list = mysqli_fetch_array($presensi);
       <tr>
       <td><?= $i; ?></td>
         <td><?= traines($row['nip']); ?></td>
+        <td><?= $row['incomplete']; ?></td>
+        <td><?= $row['Terburuk']; ?></td>
         <td><?= $row['reguler']; ?></td>
 
       

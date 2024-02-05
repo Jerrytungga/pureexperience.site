@@ -1,7 +1,7 @@
 <?php
 include '../koneksi.php';
 include 'session.php';
-
+error_reporting(0);
 
 if (isset($_POST['selesai'])) {
     $done =  $_POST['selesai'];
@@ -12,10 +12,12 @@ if (isset($_POST['selesai'])) {
 
 if (isset($_POST['simpan'])) {
     $pic =  $_POST['pic'];
+    $terburuk =  $_POST['terburuk'];
+    $jurnal =  $_POST['jurnal'];
     $r =  $_POST['reguler'];
     $max = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id`) As id FROM `doa_kasih_karunia`"));
     $idr = $max['id'] + 1;
-    $menu = mysqli_query($conn, "INSERT INTO `doa_kasih_karunia`(`nip`, `reguler`,`id`) VALUES ('$pic','$r','$idr')");
+    $menu = mysqli_query($conn, "INSERT INTO `doa_kasih_karunia`(`nip`, `reguler`,`id`,`Terburuk`,`incomplete`) VALUES ('$pic','$r','$idr','$terburuk','$jurnal')");
     
 }
 
@@ -59,11 +61,25 @@ include 'head.php';
         href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
 <!-- DataTales Example -->
+
+
+
+<style>
+    .rim{
+        background-color: #AAD9BB;
+        rounded-bottom: 0.5em;
+        border-radius: 10px;
+    }
+    .text{
+        color: #000000;
+    }
+</style>
 <div class="card shadow mb-4" >
-    <div class="card-header py-3" style="background-color: #541212;">
+    <div class="card-header py-3" style="background-color: #80BCBD;">
         <h6 class="m-0 font-weight-bold text-light">Daftar Doa Kasih Karunia</h6> <br>
         <form action="" method="post">
-      <select name="pic" id="" required>
+        <div class="btn-group">
+      <select name="pic" id="" class="form-control text-gray-900 col-3 mr-2" required>
         <option value="" >Pilih Traines</option>
         <?php
                
@@ -73,7 +89,7 @@ include 'head.php';
              <?php  }
                ?>
       </select>
-      <select name="reguler" id="" required>
+      <select name="reguler" class="form-control text-gray-900 col-3 mr-2" id="" required>
         <option value="">Pilih Reguler</option>
        <option value="R1">R1</option>
        <option value="R2">R2</option>
@@ -96,16 +112,32 @@ include 'head.php';
        <option value="R19">R19</option>
        <option value="Evaluasi">Evaluasi</option>
       </select>
-      <button type="submit" name="simpan">Simpan</button>
+      <div class="form-group form-check">
+    <input type="checkbox" name="terburuk" value="1" class="form-check-input" id="Terburuk">
+    <label class="form-check-label font-weight-bold text-gray-900 mr-4" for="Terburuk">Terburuk</label>
+    <input type="checkbox" name="jurnal" value="1" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label font-weight-bold text-gray-900" for="incomplete">incomplete</label>
+    </div>
+    <button type="submit" class="ml-2 rim" name="simpan">Simpan</button>
+</div>
+
+
+
+
+
+
       </form>
     </div>
-    <div class="card-body" >
+    <div class="card-body text" >
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
                 <thead style="color: #541212;">
                     <tr>
                     <th>No</th>
-        <th>Nama</th>
+        <th>Name</th>
+        <th>Terburuk</th>
+        <th>incomplete</th>
+
         <th>Week</th>
       
         
@@ -130,7 +162,9 @@ include 'head.php';
                 ?>
       <tr>
       <td><?= $i; ?></td>
-        <td><?= traines($row['nip']); ?></td>
+      <td><?= traines($row['nip']); ?></td>
+      <td><?= $row['Terburuk']; ?></td>
+      <td><?= $row['incomplete']; ?></td>
         <td><?= $row['reguler']; ?></td>
         <td>
             <form action="" method="POST">

@@ -26,8 +26,12 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="KB.php">
+        <a class="nav-link" href="daftar_KB.php">
             <span>Daftar KB</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="KB.php">
+            <span>Masukan KB</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="Ayat_Hafalan.php">

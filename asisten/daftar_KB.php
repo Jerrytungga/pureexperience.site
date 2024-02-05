@@ -2,19 +2,16 @@
 include '../koneksi.php';
 include 'session.php';
 
-if (isset($_POST['KB'])) {
-    $kb = $_POST['kb'];
-    $id_activity = $_POST['id_activity'];
-    $schedule_id = $_POST['schedule_id'];
-    $menu = mysqli_query($conn, "UPDATE `presensi` SET `mark` = 'I' WHERE `presensi`.`nip` ='$kb' AND `presensi`.`id_activity` ='$id_activity' AND `presensi`.`schedule_id` ='$schedule_id'");
+if (isset($_POST['kb'])) {
+    $done =  $_POST['done'];
+    $id =  $_POST['kb'];
+    $id_activity =  $_POST['id_activity'];
+    $schedule_id =  $_POST['schedule_id'];
+    $menu = mysqli_query($conn, "UPDATE `presensi` SET `status` = '$done' WHERE `presensi`.`nip` ='$id' AND `presensi`.`id_activity` ='$id_activity' AND `presensi`.`schedule_id` ='$schedule_id'");
     
+}
+$presensi = mysqli_query($conn, "SELECT * FROM `presensi` where mark='I' ");
 
-}
-if (isset($_POST['reguler'])) {
-    $presensi = mysqli_query($conn, "SELECT * FROM `presensi` where week='".$_POST['reguler']."' ");
-} else {
-    $presensi = mysqli_query($conn, "SELECT * FROM `presensi`");
-}
 
 ?>
 <!DOCTYPE html>
@@ -71,32 +68,7 @@ include 'head.php';
 <div class="card shadow mb-4" >
     <div class="card-header py-3" style="background-color: #3C2A21;">
         <h6 class="m-0 font-weight-bold text-light" >Daftar Kejar Berita</h6> <br>
-        <form action="" method="post" id="form_id">
-    
-      <select name="reguler" class="form-control text-gray-900 col-3"  onChange="document.getElementById('form_id').submit();" required>
-        <option value="">Pilih Reguler</option>
-       <option value="R1">R1</option>
-       <option value="R2">R2</option>
-       <option value="R3">R3</option>
-       <option value="R4">R4</option>
-       <option value="R5">R5</option>
-       <option value="R6">R6</option>
-       <option value="R7">R7</option>
-       <option value="R8">R8</option>
-       <option value="R9">R9</option>
-       <option value="R10">R10</option>
-       <option value="R11">R11</option>
-       <option value="R12">R12</option>
-       <option value="R13">R13</option>
-       <option value="R14">R14</option>
-       <option value="R15">R15</option>
-       <option value="R16">R16</option>
-       <option value="R17">R17</option>
-       <option value="R18">R18</option>
-       <option value="R19">R19</option>
-       <option value="Evaluasi">Evaluasi</option>
-      </select>
-      </form>
+      
 
 
 
@@ -176,11 +148,10 @@ include 'head.php';
         <input type="hidden" name="schedule_id" value="<?= $row['schedule_id']; ?>">
         <?php
         if ($row['status'] == "0") { ?>
-            <button type="submit"  name="KB" class="btn btn-success">Masukan Ke Kejar Berita</button>
+            <button type="submit" value="1" name="done" class="btn btn-success">Done</button>
         <?php    } 
         ?>
         </form>
-
         </td>
 
 
