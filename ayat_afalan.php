@@ -1,6 +1,6 @@
 <?php
 include 'koneksi.php';
-$presensi = mysqli_query($conn, "SELECT * FROM `r_ayathafalan`");
+$presensi = mysqli_query($conn, "SELECT * FROM `r_ayathafalan` where status='0'");
 $list = mysqli_fetch_array($presensi);
 ?>
 
@@ -21,7 +21,7 @@ $list = mysqli_fetch_array($presensi);
     
   <div class="card text-center m-3 shadow">
   <div class="card-header bg-danger shadow font-weight-bold text-light">
- Remedia Ayat Hafalan
+ Remedial Ayat Hafalan
   </div>
   <div class="card-body">
   <div class="container mt-4">

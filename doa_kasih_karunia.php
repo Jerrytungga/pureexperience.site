@@ -1,6 +1,6 @@
 <?php
 include 'koneksi.php';
-$presensi = mysqli_query($conn, "SELECT * FROM `doa_kasih_karunia`");
+$presensi = mysqli_query($conn, "SELECT * FROM `doa_kasih_karunia` where status='0'");
 $list = mysqli_fetch_array($presensi);
 ?>
 
